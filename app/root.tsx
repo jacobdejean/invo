@@ -6,9 +6,13 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import posthog, { PostHog } from "posthog-js";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import "@radix-ui/themes/styles.css";
+import { Theme } from "@radix-ui/themes";
+import { useEffect } from "react";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -23,6 +27,16 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+function PosthogInit() {
+  useEffect(() => {
+    posthog.init("phc_BOXdYoeW78g4I56Bw24OI1ZK7Qc3NprnBCeNSNzBkCP", {
+      api_host: "https://us.i.posthog.com",
+      person_profiles: "always", // or 'always' to create profiles for anonymous users as well
+    });
+  }, []);
+  return null;
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -33,9 +47,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <Theme>{children}</Theme>
         <ScrollRestoration />
         <Scripts />
+        <PosthogInit />
       </body>
     </html>
   );

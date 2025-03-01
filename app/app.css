@@ -13,3 +13,7 @@ body {
     color-scheme: dark;
   }
 }
+
+.page-wrapper {
+  @apply px-[5%] w-full max-w-[80rem] mx-auto overflow-hidden;
+}
