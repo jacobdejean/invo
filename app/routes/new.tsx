@@ -67,7 +67,7 @@ export default function New() {
           </Text>
         </Container>
       </Section>
-      <Section className="!py-0">
+      <Section className="!pt-0 max-sm:!pb-0">
         <Container>
           <div className="flex !gap-6 max-lg:flex-col max-lg:items-center">
             <Form.Form
