@@ -22,7 +22,7 @@ const links: Array<{
 ];
 
 export default function WebNav() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <nav className="sticky top-0 flex py-12">
       <ul className="flex gap-5">

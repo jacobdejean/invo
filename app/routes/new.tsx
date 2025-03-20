@@ -54,14 +54,12 @@ export async function action({ request }: Route.ActionArgs) {
   const actionType = actionData.get("type");
   const actionSettings = actionData.get("settings");
   if (actionType === "render_pdf") {
-    const cloudflareAccountId = "";
-    const cloudflareApiToken = "";
-    const renderUrl = new URL(`${requestUrl.host}/render`);
+    const cloudflareAccountId =
+      process.env.CLOUDFLARE_ACCOUNT_ID ?? "TRY AGAIN";
+    const cloudflareApiToken = process.env.CLOUDFLARE_API_TOKEN ?? "TRY AGAIN";
+    const renderUrl = new URL(`https://invo.dev/render`);
     invariant(actionSettings, "Bad input");
     const inputSettings = JSON.parse(actionSettings.toString());
-    Object.entries(inputSettings).forEach(([key, value]) =>
-      renderUrl.searchParams.set(key, String(value))
-    );
     console.log("Rendering", renderUrl.toString(), inputSettings);
     const result = await fetch(
       `https://api.cloudflare.com/client/v4/accounts/${cloudflareAccountId}/browser-rendering/pdf`,
@@ -73,6 +71,18 @@ export async function action({ request }: Route.ActionArgs) {
         },
         body: JSON.stringify({
           url: renderUrl.toString(),
+          cookies: [
+            {
+              name: "invoiceSettings",
+              value: actionSettings.toString(),
+              domain: "invo.dev",
+              path: "/",
+              expires: Date.now() / 1000 + 3600, // Expires in 1 hour (in seconds since epoch)
+              httpOnly: true,
+              secure: true,
+              sameSite: "Strict",
+            },
+          ],
           viewport: {
             width: 794,
             height: 1123,
@@ -80,6 +90,7 @@ export async function action({ request }: Route.ActionArgs) {
         }),
       }
     );
+    console.log("REQUEST", result, await result.text());
   }
 }
 
@@ -329,7 +340,7 @@ export default function New() {
 }
 
 export type LineItemProps = {
-  item: LineItem;
+  item: any;
   index: number;
 };
 
