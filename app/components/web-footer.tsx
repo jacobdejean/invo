@@ -22,7 +22,7 @@ const links: Array<{
 ];
 
 export default function WebFooter() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <footer className="sticky top-0 flex py-12">
       <ul className="flex flex-col gap-5">
