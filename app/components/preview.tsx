@@ -1,67 +1,90 @@
 import { Button } from "@radix-ui/themes";
 import { useState } from "react";
-import useInvoiceStore from "~/store";
+import { useFetcher } from "react-router";
+import useInvoiceStore, { type Invoice } from "~/store";
 
-export default function Preview() {
+export type PreviewProps = {};
+
+export default function Preview({}: PreviewProps) {
+  const invoice = useInvoiceStore();
+  const renderPdfFetcher = useFetcher({ key: "render_pdf" });
   return (
     <div className="grow min-h-full relative overflow-hidden flex items-start justify-center p-4">
       <div className="relative w-full max-w-[595px] overflow-hidden">
-        <Invoice />
+        <div>
+          <div className="bg-white w-full aspect-[1/1.414] shadow-lg border border-neutral-300 overflow-auto scale-100 origin-top">
+            <Invoice data={invoice} />
+          </div>
+          <Button
+            size={"3"}
+            className="!mt-6 !w-full"
+            onClick={() => {
+              const invoiceSettings =
+                document.getElementById("invoice-settings");
+              const data = new FormData(invoiceSettings as HTMLFormElement);
+              console.log(data);
+              renderPdfFetcher.submit(
+                {
+                  type: "render_pdf",
+                  settings: JSON.stringify(Object.fromEntries(data)),
+                },
+                {
+                  method: "post",
+                }
+              );
+            }}
+          >
+            Download invoice
+          </Button>
+        </div>
       </div>
     </div>
   );
 }
 
-function Invoice() {
-  const invoice = useInvoiceStore();
+export type InvoiceProps = {
+  data: Invoice;
+};
 
-  if (!invoice) {
+export function Invoice({ data }: InvoiceProps) {
+  if (!data) {
     return (
-      <div
-        id="invoice-element"
-        className="bg-white w-full aspect-[1/1.414] shadow-lg border border-neutral-300 flex items-center justify-center"
-      >
+      <div id="invoice-element">
         <div className="text-center text-gray-500">Preview unavailable</div>
       </div>
     );
   }
 
-  // Calculate subtotal
   const subtotal =
-    invoice?.lineItems?.reduce(
+    data?.lineItems?.reduce(
       (total, item) => total + (item.quantity || 0) * (item.unitPrice || 0),
       0
     ) || 0;
 
-  // Calculate tax
-  const taxRate = parseFloat(invoice.taxRate || "0") / 100;
+  const taxRate = parseFloat(String(data.taxRate || "0")) / 100;
   const taxAmount = subtotal * taxRate;
 
-  // Calculate total
   const total = subtotal + taxAmount;
 
   return (
     <>
-      <div
-        id="invoice-element"
-        className="bg-white w-full aspect-[1/1.414] shadow-lg border border-neutral-300 overflow-auto scale-100 origin-top"
-      >
+      <div id="invoice-element">
         <div className="p-8 text-sm">
           <div className="mb-6">
-            {invoice?.logo ? (
-              <img src={invoice?.logo} className="max-w-32 mb-3" />
+            {data?.logo ? (
+              <img src={data?.logo} className="max-w-32 mb-3" />
             ) : (
               <h2 className="text-2xl font-bold mb-2">Invoice</h2>
             )}
             <p className="text-gray-600">
               <span className="font-semibold">Invoice #:</span>{" "}
-              {invoice.invoiceNumber}
+              {data.invoiceNumber}
             </p>
             <p className="text-gray-600">
-              <span className="font-semibold">Issued:</span> {invoice.issueDate}
+              <span className="font-semibold">Issued:</span> {data.issueDate}
             </p>
             <p className="text-gray-600">
-              <span className="font-semibold">Due by:</span> {invoice.dueDate}
+              <span className="font-semibold">Due by:</span> {data.dueDate}
             </p>
           </div>
 
@@ -70,38 +93,37 @@ function Invoice() {
               <h3 className="text-base font-semibold mb-1">From:</h3>
               <p className="text-gray-600">
                 <strong>
-                  {invoice.senderIdentity?.name ??
-                    invoice.senderIdentity?.email}
+                  {data.senderIdentity?.name ?? data.senderIdentity?.email}
                 </strong>
                 <br />
-                {invoice.senderIdentity?.phone && (
+                {data.senderIdentity?.phone && (
                   <>
-                    {invoice.senderIdentity.phone}
+                    {data.senderIdentity.phone}
                     <br />
                   </>
                 )}
-                {invoice.senderIdentity?.address && (
+                {data.senderIdentity?.address && (
                   <>
-                    {invoice.senderIdentity.address}
+                    {data.senderIdentity.address}
                     <br />
                   </>
                 )}
-                {invoice.senderIdentity?.city && invoice.senderIdentity.city}
-                {invoice.senderIdentity?.state &&
-                  (invoice.senderIdentity?.city ? ", " : "") +
-                    invoice.senderIdentity.state}
-                {invoice.senderIdentity?.postalCode &&
-                  " " + invoice.senderIdentity.postalCode}
-                {invoice.senderIdentity?.country && (
+                {data.senderIdentity?.city && data.senderIdentity.city}
+                {data.senderIdentity?.state &&
+                  (data.senderIdentity?.city ? ", " : "") +
+                    data.senderIdentity.state}
+                {data.senderIdentity?.postalCode &&
+                  " " + data.senderIdentity.postalCode}
+                {data.senderIdentity?.country && (
                   <>
                     <br />
-                    {invoice.senderIdentity.country}
+                    {data.senderIdentity.country}
                   </>
                 )}
-                {invoice.senderIdentity?.email && (
+                {data.senderIdentity?.email && (
                   <>
                     <br />
-                    {invoice.senderIdentity.email}
+                    {data.senderIdentity.email}
                   </>
                 )}
               </p>
@@ -109,37 +131,36 @@ function Invoice() {
             <div>
               <h3 className="text-base font-semibold mb-1">Bill To:</h3>
               <p className="text-gray-600">
-                <strong>{invoice.customerIdentity?.name}</strong>
+                <strong>{data.customerIdentity?.name}</strong>
                 <br />
-                {invoice.senderIdentity?.phone && (
+                {data.customerIdentity?.phone && (
                   <>
-                    {invoice.senderIdentity.phone}
+                    {data.customerIdentity.phone}
                     <br />
                   </>
                 )}
-                {invoice.customerIdentity?.address && (
+                {data.customerIdentity?.address && (
                   <>
-                    {invoice.customerIdentity.address}
+                    {data.customerIdentity.address}
                     <br />
                   </>
                 )}
-                {invoice.customerIdentity?.city &&
-                  invoice.customerIdentity.city}
-                {invoice.customerIdentity?.state &&
-                  (invoice.customerIdentity?.city ? ", " : "") +
-                    invoice.customerIdentity.state}
-                {invoice.customerIdentity?.postalCode &&
-                  " " + invoice.customerIdentity.postalCode}
-                {invoice.customerIdentity?.country && (
+                {data.customerIdentity?.city && data.customerIdentity.city}
+                {data.customerIdentity?.state &&
+                  (data.customerIdentity?.city ? ", " : "") +
+                    data.customerIdentity.state}
+                {data.customerIdentity?.postalCode &&
+                  " " + data.customerIdentity.postalCode}
+                {data.customerIdentity?.country && (
                   <>
                     <br />
-                    {invoice.customerIdentity.country}
+                    {data.customerIdentity.country}
                   </>
                 )}
-                {invoice.customerIdentity?.email && (
+                {data.customerIdentity?.email && (
                   <>
                     <br />
-                    {invoice.customerIdentity.email}
+                    {data.customerIdentity.email}
                   </>
                 )}
               </p>
@@ -164,7 +185,7 @@ function Invoice() {
               </tr>
             </thead>
             <tbody>
-              {invoice.lineItems?.map((lineItem, index) => (
+              {data.lineItems?.map((lineItem: any, index: number) => (
                 <tr key={index}>
                   <td className="p-2 border border-gray-200">
                     {lineItem.name}
@@ -201,7 +222,7 @@ function Invoice() {
                   colSpan={3}
                   className="p-2 border border-gray-200 text-right"
                 >
-                  Tax ({invoice.taxRate || 0}%)
+                  Tax ({data.taxRate || 0}%)
                 </td>
                 <td className="p-2 border border-gray-200 text-right">
                   {taxAmount.toFixed(2)}
@@ -222,11 +243,11 @@ function Invoice() {
           </table>
 
           <div className="mt-6">
-            {invoice.memo && (
+            {data.memo && (
               <div className="mb-4 p-3 bg-gray-50 rounded-sm">
                 <strong>Notes:</strong>
                 <br />
-                {invoice.memo}
+                {data.memo}
               </div>
             )}
             <p className="text-center text-gray-600 text-sm mt-4">
@@ -235,9 +256,6 @@ function Invoice() {
           </div>
         </div>
       </div>
-      <Button size={"3"} className="!mt-6 !w-full">
-        Download invoice
-      </Button>
     </>
   );
 }

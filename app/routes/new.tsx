@@ -38,6 +38,8 @@ import Preview from "~/components/preview";
 import useInvoiceStore from "~/store";
 import SettingsInput from "~/components/settings-text-field";
 import SettingsArea from "~/components/settings-text-area";
+import { useFetcher } from "react-router";
+import invariant from "tiny-invariant";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -46,8 +48,44 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
+export async function action({ request }: Route.ActionArgs) {
+  const requestUrl = new URL(request.url);
+  const actionData = await request.formData();
+  const actionType = actionData.get("type");
+  const actionSettings = actionData.get("settings");
+  if (actionType === "render_pdf") {
+    const cloudflareAccountId = "";
+    const cloudflareApiToken = "";
+    const renderUrl = new URL(`${requestUrl.host}/render`);
+    invariant(actionSettings, "Bad input");
+    const inputSettings = JSON.parse(actionSettings.toString());
+    Object.entries(inputSettings).forEach(([key, value]) =>
+      renderUrl.searchParams.set(key, String(value))
+    );
+    console.log("Rendering", renderUrl.toString(), inputSettings);
+    const result = await fetch(
+      `https://api.cloudflare.com/client/v4/accounts/${cloudflareAccountId}/browser-rendering/pdf`,
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cloudflareApiToken}`,
+        },
+        body: JSON.stringify({
+          url: renderUrl.toString(),
+          viewport: {
+            width: 794,
+            height: 1123,
+          },
+        }),
+      }
+    );
+  }
+}
+
 export default function New() {
   const invoice = useInvoiceStore();
+
   return (
     <div className="page-wrapper">
       <Section className="max-sm:!p-0">
@@ -73,15 +111,8 @@ export default function New() {
             <Form.Form
               key={invoice?.invoiceName}
               method="post"
+              id="invoice-settings"
               className="flex pt-4 pb-4 items-stretch flex-none w-full max-w-[480px] relative"
-              onSubmit={(event) => {
-                event.preventDefault();
-                const data = new FormData(event.target as HTMLFormElement);
-                // update.submit(
-                //   { type: "update", ...Object.fromEntries(data) },
-                //   { method: "post" }
-                // );
-              }}
             >
               <Flex direction="column" gap="0" className=" max-h-full">
                 {/* Header */}

@@ -2,8 +2,7 @@ import yeast from "yeast";
 import { create } from "zustand";
 import { produce } from "immer";
 
-const useInvoiceStore = create<{
-  // State properties
+export type Invoice = {
   invoiceName: string;
   invoiceNumber: string;
   issueDate: string;
@@ -40,21 +39,25 @@ const useInvoiceStore = create<{
   discount: number;
   shippingFee: number;
   taxRate: number;
+};
 
-  // Actions
-  setInvoiceDetail: (field: string, value: string | number) => void;
-  setSenderDetail: (field: string, value: string) => void;
-  setCustomerDetail: (field: string, value: string) => void;
-  addLineItem: () => void;
-  updateLineItem: (
-    index: number,
-    field: string,
-    value: string | number
-  ) => void;
-  removeLineItem: (index: number) => void;
-  setFieldByPath: (path: string, value: any) => void;
-  resetInvoice: () => void;
-}>((set) => ({
+const useInvoiceStore = create<
+  Invoice & {
+    // Actions
+    setInvoiceDetail: (field: string, value: string | number) => void;
+    setSenderDetail: (field: string, value: string) => void;
+    setCustomerDetail: (field: string, value: string) => void;
+    addLineItem: () => void;
+    updateLineItem: (
+      index: number,
+      field: string,
+      value: string | number
+    ) => void;
+    removeLineItem: (index: number) => void;
+    setFieldByPath: (path: string, value: any) => void;
+    resetInvoice: () => void;
+  }
+>((set) => ({
   // Invoice details
   // Invoice details
   invoiceName: `INV-${yeast()}`,
