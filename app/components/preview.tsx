@@ -19,14 +19,16 @@ export default function Preview({}: PreviewProps) {
             size={"3"}
             className="!mt-6 !w-full"
             onClick={() => {
-              const invoiceSettings =
-                document.getElementById("invoice-settings");
-              const data = new FormData(invoiceSettings as HTMLFormElement);
-              console.log(data);
+              const invoiceForm = document.querySelector(".invoice-settings");
+              const invoiceFormData = new FormData(
+                invoiceForm as HTMLFormElement
+              );
+              const invoiceData = Object.fromEntries(invoiceFormData);
+              console.log(invoiceData);
               renderPdfFetcher.submit(
                 {
                   type: "render_pdf",
-                  settings: JSON.stringify(Object.fromEntries(data)),
+                  settings: JSON.stringify(invoiceData),
                 },
                 {
                   method: "post",
