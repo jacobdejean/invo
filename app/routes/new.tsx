@@ -48,12 +48,11 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function action({ request }: Route.ActionArgs) {
-  const requestUrl = new URL(request.url);
-  const actionData = await request.formData();
-  const actionType = actionData.get("type");
-  const actionSettings = actionData.get("settings");
-  if (actionType === "render_pdf") {
+export async function loader({ request }: Route.LoaderArgs) {
+  const searchParams = new URL(request.url).searchParams;
+  const isDownloadRequest = searchParams.get("download") === "true";
+
+  if (isDownloadRequest) {
     const cloudflareAccountId =
       process.env.CLOUDFLARE_ACCOUNT_ID ?? "TRY AGAIN";
     const cloudflareApiToken = process.env.CLOUDFLARE_API_TOKEN ?? "TRY AGAIN";
@@ -90,8 +89,18 @@ export async function action({ request }: Route.ActionArgs) {
         }),
       }
     );
-    console.log("REQUEST", result, await result.text());
+    const pdfBlob = await result.blob();
+
+    return new Response(pdfBlob, {
+      status: 200,
+      headers: {
+        "Content-Type": "application/pdf",
+        "Content-Disposition": `attachment; filename="${inputSettings?.invoiceNumber}.pdf"`,
+      },
+    });
   }
+
+  return {};
 }
 
 export default function New() {
@@ -122,8 +131,7 @@ export default function New() {
             <Form.Form
               key={invoice?.invoiceName}
               method="post"
-              id="invoice-settings"
-              className="flex pt-4 pb-4 items-stretch flex-none w-full max-w-[480px] relative"
+              className="invoice-settings flex pt-4 pb-4 items-stretch flex-none w-full max-w-[480px] relative"
             >
               <Flex direction="column" gap="0" className=" max-h-full">
                 {/* Header */}
