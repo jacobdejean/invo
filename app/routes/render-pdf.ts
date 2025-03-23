@@ -19,7 +19,7 @@ async function createPdfResponse(invoiceData: any) {
     const cloudflareApiToken =
       process.env.CLOUDFLARE_API_TOKEN ?? "env missing variable";
     const domain = process.env.PRODUCTION_HOSTNAME ?? "env missing variable";
-    const renderUrl = new URL(`https://${domain}/render-web`);
+    const renderUrl = new URL(`${domain}/render-web`);
 
     console.log("Generating PDF", renderUrl.toString(), invoiceData);
 
