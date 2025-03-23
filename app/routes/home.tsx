@@ -54,13 +54,13 @@ export default function Home() {
             </p>
           </Text>
           <div className="mt-6">
-            <a
+            {/* <a
               href="/new"
               className="rt-reset rt-BaseButton rt-r-size-3 rt-variant-solid rt-Button"
             >
               Get started
-            </a>
-            {/* <Button disabled>Coming soon</Button> */}
+            </a> */}
+            <Button disabled>Coming soon</Button>
           </div>
         </Container>
       </Section>
