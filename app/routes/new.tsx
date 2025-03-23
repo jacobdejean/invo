@@ -12,6 +12,7 @@ import {
   Text,
   Heading,
   TextArea,
+  Box,
 } from "@radix-ui/themes";
 import WebNav from "~/components/web-nav";
 import WebFooter from "~/components/web-footer";
@@ -48,61 +49,6 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader({ request }: Route.LoaderArgs) {
-  const searchParams = new URL(request.url).searchParams;
-  const isDownloadRequest = searchParams.get("download") === "true";
-
-  if (isDownloadRequest) {
-    const cloudflareAccountId =
-      process.env.CLOUDFLARE_ACCOUNT_ID ?? "TRY AGAIN";
-    const cloudflareApiToken = process.env.CLOUDFLARE_API_TOKEN ?? "TRY AGAIN";
-    const renderUrl = new URL(`https://invo.dev/render`);
-    invariant(actionSettings, "Bad input");
-    const inputSettings = JSON.parse(actionSettings.toString());
-    console.log("Rendering", renderUrl.toString(), inputSettings);
-    const result = await fetch(
-      `https://api.cloudflare.com/client/v4/accounts/${cloudflareAccountId}/browser-rendering/pdf`,
-      {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${cloudflareApiToken}`,
-        },
-        body: JSON.stringify({
-          url: renderUrl.toString(),
-          cookies: [
-            {
-              name: "invoiceSettings",
-              value: actionSettings.toString(),
-              domain: "invo.dev",
-              path: "/",
-              expires: Date.now() / 1000 + 3600, // Expires in 1 hour (in seconds since epoch)
-              httpOnly: true,
-              secure: true,
-              sameSite: "Strict",
-            },
-          ],
-          viewport: {
-            width: 794,
-            height: 1123,
-          },
-        }),
-      }
-    );
-    const pdfBlob = await result.blob();
-
-    return new Response(pdfBlob, {
-      status: 200,
-      headers: {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename="${inputSettings?.invoiceNumber}.pdf"`,
-      },
-    });
-  }
-
-  return {};
-}
-
 export default function New() {
   const invoice = useInvoiceStore();
 
@@ -115,7 +61,7 @@ export default function New() {
       </Section>
       <Section className="!pt-0">
         <Container>
-          <h1 className="text-6xl leading-none font-medium mb-4 max-sm:text-4xl">
+          <h1 className="text-4xl leading-none font-medium mb-4 max-sm:text-2xl">
             New invoice
           </h1>
           <Text mb={"4"}>
@@ -127,13 +73,14 @@ export default function New() {
       </Section>
       <Section className="!pt-0 max-sm:!pb-0">
         <Container>
-          <div className="flex !gap-6 max-lg:flex-col max-lg:items-center">
-            <Form.Form
-              key={invoice?.invoiceName}
-              method="post"
-              className="invoice-settings flex pt-4 pb-4 items-stretch flex-none w-full max-w-[480px] relative"
-            >
-              <Flex direction="column" gap="0" className=" max-h-full">
+          <Form.Form
+            key={invoice?.invoiceName}
+            method="post"
+            action="/render-pdf"
+            className="invoice-settings flex !gap-6 max-lg:flex-col max-lg:items-center"
+          >
+            <Box className="flex pt-4 pb-4 items-stretch flex-none w-full max-w-[480px] relative">
+              <Flex direction="column" gap="0" className="max-h-full">
                 {/* Header */}
                 <Flex direction="column" gap="4">
                   <SettingsInput
@@ -148,7 +95,6 @@ export default function New() {
                     defaultValue={invoice?.invoiceNumber}
                     icon={<FileText size={20} />}
                   />
-
                   {/* Invoice Details */}
                   <Grid columns="2" gap="4">
                     <SettingsInput
@@ -338,9 +284,9 @@ export default function New() {
                   </Grid>
                 </Flex>
               </Flex>
-            </Form.Form>
+            </Box>
             <Preview />
-          </div>
+          </Form.Form>
         </Container>
       </Section>
     </div>

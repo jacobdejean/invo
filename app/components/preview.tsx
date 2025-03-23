@@ -15,27 +15,7 @@ export default function Preview({}: PreviewProps) {
           <div className="bg-white w-full aspect-[1/1.414] shadow-lg border border-neutral-300 overflow-auto scale-100 origin-top">
             <Invoice data={invoice} />
           </div>
-          <Button
-            size={"3"}
-            className="!mt-6 !w-full"
-            onClick={() => {
-              const invoiceForm = document.querySelector(".invoice-settings");
-              const invoiceFormData = new FormData(
-                invoiceForm as HTMLFormElement
-              );
-              const invoiceData = Object.fromEntries(invoiceFormData);
-              console.log(invoiceData);
-              renderPdfFetcher.submit(
-                {
-                  type: "render_pdf",
-                  settings: JSON.stringify(invoiceData),
-                },
-                {
-                  method: "post",
-                }
-              );
-            }}
-          >
+          <Button size={"3"} className="!mt-6 !w-full" type="submit">
             Download invoice
           </Button>
         </div>
