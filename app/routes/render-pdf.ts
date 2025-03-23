@@ -54,6 +54,8 @@ async function createPdfResponse(invoiceData: any) {
       }
     );
 
+    console.log("PDF Result", result);
+
     if (!result.ok) {
       const errorText = await result.text();
       log("ERROR", `Invalid PDF Result`, errorText);
