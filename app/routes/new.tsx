@@ -59,7 +59,7 @@ export default function New() {
           <WebNav />
         </Container>
       </Section>
-      <Section className="!pt-0">
+      <Section className="!pt-0 !pb-0">
         <Container>
           <h1 className="text-4xl leading-none font-medium mb-4 max-sm:text-2xl">
             New invoice
@@ -287,6 +287,11 @@ export default function New() {
             </Box>
             <Preview />
           </Form.Form>
+        </Container>
+      </Section>
+      <Section className="max-sm:hidden">
+        <Container>
+          <WebFooter />
         </Container>
       </Section>
     </div>

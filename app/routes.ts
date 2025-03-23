@@ -4,5 +4,4 @@ export default [
   index("routes/home.tsx"),
   route("new", "routes/new.tsx"),
   route("render-pdf", "routes/render-pdf.tsx"),
-  route("render-web", "routes/render-web.tsx"),
 ] satisfies RouteConfig;
