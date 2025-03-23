@@ -5,6 +5,8 @@
 import log from "~/log";
 import type { Route } from "./+types/render-pdf";
 import invariant from "tiny-invariant";
+import { renderToString } from "react-dom/server";
+import { BasicInvoice } from "~/components/templates/basic";
 
 export async function action({ request, params }: Route.ActionArgs) {
   const invoiceFormData = await request.formData();
@@ -21,7 +23,7 @@ async function createPdfResponse(invoiceData: any) {
     const domain = process.env.PRODUCTION_HOSTNAME ?? "env missing variable";
     const renderUrl = new URL(`${domain}/render-web`);
 
-    console.log("Generating PDF", renderUrl.toString(), invoiceData);
+    log("INFO", "Creating PDF");
 
     const result = await fetch(
       `https://api.cloudflare.com/client/v4/accounts/${cloudflareAccountId}/browser-rendering/pdf`,
@@ -32,19 +34,29 @@ async function createPdfResponse(invoiceData: any) {
           Authorization: `Bearer ${cloudflareApiToken}`,
         },
         body: JSON.stringify({
-          url: renderUrl.toString(),
-          cookies: [
-            {
-              name: "invoiceData",
-              value: invoiceData.toString(),
-              domain,
-              path: "/",
-              expires: Date.now() / 1000 + 3600, // Expires in 1 hour
-              httpOnly: true,
-              secure: true,
-              sameSite: "Strict",
-            },
-          ],
+          html: renderToString(
+            <html>
+              <body>
+                <BasicInvoice data={invoiceData} />
+              </body>
+            </html>
+          ),
+          addStyleTag: [
+                { "url": "https://invo.dev/css/base-invoice.css" }
+              ]
+          // url: renderUrl.toString(),
+          // cookies: [
+          //   {
+          //     name: "invoiceData",
+          //     value: invoiceData.toString(),
+          //     domain,
+          //     path: "/",
+          //     expires: Date.now() / 1000 + 3600, // Expires in 1 hour
+          //     httpOnly: true,
+          //     secure: true,
+          //     sameSite: "Strict",
+          //   },
+          // ],
           viewport: {
             // A4
             width: 794,
@@ -53,8 +65,6 @@ async function createPdfResponse(invoiceData: any) {
         }),
       }
     );
-
-    console.log("PDF Result", result);
 
     if (!result.ok) {
       const errorText = await result.text();
