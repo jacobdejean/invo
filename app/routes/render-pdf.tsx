@@ -41,9 +41,7 @@ async function createPdfResponse(invoiceData: any) {
               </body>
             </html>
           ),
-          addStyleTag: [
-                { "url": "https://invo.dev/css/base-invoice.css" }
-              ]
+          addStyleTag: [{ url: "https://invo.dev/css/base-invoice.css" }],
           // url: renderUrl.toString(),
           // cookies: [
           //   {
