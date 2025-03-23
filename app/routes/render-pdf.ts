@@ -2,6 +2,7 @@
   render-pdf has an action setup to recieve invoice form data, render with cloudflare, then stream pdf back via the form navigation
 */
 
+import log from "~/log";
 import type { Route } from "./+types/render-pdf";
 import invariant from "tiny-invariant";
 
@@ -55,6 +56,7 @@ async function createPdfResponse(invoiceData: any) {
 
     if (!result.ok) {
       const errorText = await result.text();
+      log("ERROR", `Invalid PDF Result`, errorText);
       return new Response(errorText, {
         status: result.status,
         headers: {
@@ -68,6 +70,13 @@ async function createPdfResponse(invoiceData: any) {
       const errorBody = JSON.stringify({
         error: "Expected PDF but received different content type",
       });
+      log(
+        "ERROR",
+        `Invalid Content Type`,
+        errorBody,
+        `Expected: application/pdf`,
+        `Recieved ${contentType}`
+      );
       return new Response(errorBody, {
         status: 400,
         headers: {
@@ -78,6 +87,8 @@ async function createPdfResponse(invoiceData: any) {
 
     const pdfBlob = await result.blob();
 
+    log("INFO", "Created Valid PDF");
+
     return new Response(pdfBlob, {
       status: 200,
       headers: {
@@ -86,6 +97,11 @@ async function createPdfResponse(invoiceData: any) {
       },
     });
   } catch (error) {
+    log(
+      "ERROR",
+      `Failed to Create PDF`,
+      "message" in error ? error.message : JSON.stringify(error)
+    );
     return new Response(JSON.stringify({ error: "Failed to render PDF" }), {
       status: 500,
       headers: {
