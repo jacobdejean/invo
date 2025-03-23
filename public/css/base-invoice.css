@@ -1,8 +1,3 @@
-/* Base styles */
-#invoice-element {
-  font-size: 0.875rem; /* text-sm */
-}
-
 .p-8 {
   padding: 2rem;
 }
@@ -130,11 +125,11 @@
 }
 
 .bg-gray-100 {
-  background-color: rgb(243, 244, 246);
+  background-color: #f3f4f6;
 }
 
 .bg-gray-50 {
-  background-color: rgb(249, 250, 251);
+  background-color: #f9fafc;
 }
 
 .rounded-sm {
