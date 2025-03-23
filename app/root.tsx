@@ -30,7 +30,7 @@ export const links: Route.LinksFunction = () => [
 function PosthogInit() {
   useEffect(() => {
     posthog.init("phc_BOXdYoeW78g4I56Bw24OI1ZK7Qc3NprnBCeNSNzBkCP", {
-      api_host: "https://us.i.posthog.com",
+      api_host: "https://ingest.invo.dev",
       person_profiles: "always", // or 'always' to create profiles for anonymous users as well
     });
   }, []);
