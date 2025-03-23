@@ -3,10 +3,10 @@
 */
 
 import { useLoaderData } from "react-router";
-import { Invoice } from "~/components/preview";
 import invariant from "tiny-invariant";
 import { getSession } from "~/sessions.server";
 import type { Route } from "./+types/render-web";
+import { BasicInvoice } from "~/components/templates/basic";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const requestUrl = new URL(request.url);
@@ -21,5 +21,5 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export default function Render() {
   const data = useLoaderData();
-  return <Invoice data={data} />;
+  return <BasicInvoice data={data} />;
 }
