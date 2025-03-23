@@ -2,7 +2,6 @@
   render-pdf has an action setup to recieve invoice form data, render with cloudflare, then stream pdf back via the form navigation
 */
 
-import { getSession } from "~/sessions.server";
 import type { Route } from "./+types/render-pdf";
 import invariant from "tiny-invariant";
 
