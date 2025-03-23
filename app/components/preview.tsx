@@ -8,7 +8,6 @@ export type PreviewProps = {};
 
 export default function Preview({}: PreviewProps) {
   const invoice = useInvoiceStore();
-  const renderPdfFetcher = useFetcher({ key: "render_pdf" });
   return (
     <div className="grow min-h-full relative overflow-hidden flex items-start justify-center p-4">
       <div className="relative w-full max-w-[595px] overflow-hidden">

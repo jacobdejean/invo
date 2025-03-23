@@ -36,25 +36,17 @@ async function createPdfResponse(invoiceData: any) {
         body: JSON.stringify({
           html: renderToString(
             <html>
+              <head>
+                <link
+                  rel="stylesheet"
+                  href="https://invo.dev/css/base-invoice.css"
+                />
+              </head>
               <body>
                 <BasicInvoice data={invoiceData} />
               </body>
             </html>
           ),
-          addStyleTag: [{ url: "https://invo.dev/css/base-invoice.css" }],
-          // url: renderUrl.toString(),
-          // cookies: [
-          //   {
-          //     name: "invoiceData",
-          //     value: invoiceData.toString(),
-          //     domain,
-          //     path: "/",
-          //     expires: Date.now() / 1000 + 3600, // Expires in 1 hour
-          //     httpOnly: true,
-          //     secure: true,
-          //     sameSite: "Strict",
-          //   },
-          // ],
           viewport: {
             // A4
             width: 794,
