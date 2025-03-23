@@ -11,6 +11,7 @@ import type { Route } from "./+types/render-web";
 export async function loader({ request }: Route.LoaderArgs) {
   const requestUrl = new URL(request.url);
   const params = requestUrl.searchParams;
+  console.log("PARAMS", params);
   const session = await getSession(request.headers.get("Cookie"));
   const invoiceDataStr = session.get("invoiceData");
   invariant(invoiceDataStr, "Bad input: missing necessary cookies");
