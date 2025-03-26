@@ -114,7 +114,11 @@ async function createPdfResponse(invoiceData: any) {
 }
 
 function fromFormData(formData: FormData) {
-  return {
+  console.log("FORM DATA", formData);
+  const lineItemKeys = [...formData.keys()].filter((key) =>
+    key.startsWith("lineItem")
+  );
+  const data = {
     invoiceName: formData.get("invoiceName"),
     invoiceNumber: formData.get("invoiceNumber"),
     issueDate: formData.get("issueDate"),
@@ -140,26 +144,62 @@ function fromFormData(formData: FormData) {
       postalCode: formData.get("customerIdentity.postalCode"),
       country: formData.get("customerIdentity.country"),
     },
-    lineItems: Array.from(
-      {
-        length: parseInt(formData.get("lineItemCount")?.toString() || "0", 10),
-      },
-      (_, index) => ({
-        name: formData.get(`lineItem[${index}].name`),
-        quantity: parseInt(
-          formData.get(`lineItem[${index}].quantity`)?.toString() || "0",
-          10
-        ),
-        unitPrice: parseFloat(
-          formData.get(`lineItem[${index}].unitPrice`)?.toString() || "0"
-        ),
-        note: formData.get(`lineItem[${index}].note`),
-        productId: formData.get(`lineItem[${index}].productId`),
-      })
-    ),
+    lineItems: convertToArrayObject(formDataToArray(formData)),
     memo: formData.get("memo"),
     discount: parseFloat(formData.get("discount")?.toString() || "0"),
     shippingFee: parseFloat(formData.get("shippingFee")?.toString() || "0"),
     taxRate: parseFloat(formData.get("taxRate")?.toString() || "0"),
   };
+  console.log("DATA", data);
+  return data;
 }
+
+interface InputItem {
+  name: string;
+  value: string;
+}
+
+interface LineItem {
+  name: string;
+  quantity: string;
+  unitPrice: string;
+}
+
+const convertToArrayObject = (data: InputItem[]): LineItem[] => {
+  const result: LineItem[] = [];
+
+  data.forEach((item: InputItem) => {
+    const matches: RegExpMatchArray | null = item.name.match(
+      /lineItems\[(\d+)\]\.(\w+)/
+    );
+    if (!matches) return;
+
+    const [, indexStr, property] = matches;
+    const index: number = parseInt(indexStr, 10);
+
+    if (!result[index]) {
+      result[index] = {
+        name: "",
+        quantity: "",
+        unitPrice: "",
+      };
+    }
+
+    if (
+      property === "name" ||
+      property === "quantity" ||
+      property === "unitPrice"
+    ) {
+      result[index][property] = item.value;
+    }
+  });
+
+  return result.filter(Boolean);
+};
+
+const formDataToArray = (formData: FormData): InputItem[] => {
+  return Array.from(formData.entries()).map(([name, value]) => ({
+    name,
+    value: value.toString(),
+  }));
+};
