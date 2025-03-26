@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useFetcher } from "react-router";
 import useInvoiceStore, { type Invoice } from "~/store";
 import { BasicInvoice } from "./templates/basic";
+import posthog from "posthog-js";
 
 export type PreviewProps = {};
 

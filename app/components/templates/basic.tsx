@@ -8,7 +8,9 @@ export function BasicInvoice({ data }: InvoiceProps) {
   if (!data) {
     return (
       <div id="invoice-element">
-        <div className="text-center text-gray-500">Preview unavailable</div>
+        <div style={{ textAlign: "center", color: "#6b7280" }}>
+          Preview unavailable
+        </div>
       </div>
     );
   }
@@ -27,29 +29,57 @@ export function BasicInvoice({ data }: InvoiceProps) {
   return (
     <>
       <div id="invoice-element">
-        <div className="p-8 text-sm">
-          <div className="mb-6">
+        <div style={{ padding: "2rem", fontSize: "0.875rem" }}>
+          <div style={{ marginBottom: "1.5rem" }}>
             {data?.logo ? (
-              <img src={data?.logo} className="max-w-32 mb-3" />
+              <img
+                src={data?.logo}
+                style={{ maxWidth: "8rem", marginBottom: "0.75rem" }}
+              />
             ) : (
-              <h2 className="text-2xl font-bold mb-2">Invoice</h2>
+              <h2
+                style={{
+                  fontSize: "1.5rem",
+                  fontWeight: "bold",
+                  marginBottom: "0.5rem",
+                }}
+              >
+                Invoice
+              </h2>
             )}
-            <p className="text-gray-600">
-              <span className="font-semibold">Invoice #:</span>{" "}
+            <p style={{ color: "#4b5563" }}>
+              <span style={{ fontWeight: "600" }}>Invoice #:</span>{" "}
               {data.invoiceNumber}
             </p>
-            <p className="text-gray-600">
-              <span className="font-semibold">Issued:</span> {data.issueDate}
+            <p style={{ color: "#4b5563" }}>
+              <span style={{ fontWeight: "600" }}>Issued:</span>{" "}
+              {data.issueDate}
             </p>
-            <p className="text-gray-600">
-              <span className="font-semibold">Due by:</span> {data.dueDate}
+            <p style={{ color: "#4b5563" }}>
+              <span style={{ fontWeight: "600" }}>Due by:</span> {data.dueDate}
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-between mb-6 gap-4">
+          <div
+            style={{
+              display: "flex",
+              gap: "1rem",
+              marginBottom: "1.5rem",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
             <div>
-              <h3 className="text-base font-semibold mb-1">From:</h3>
-              <p className="text-gray-600">
+              <h3
+                style={{
+                  fontSize: "1rem",
+                  fontWeight: "600",
+                  marginBottom: "0.25rem",
+                }}
+              >
+                From:
+              </h3>
+              <p style={{ color: "#4b5563" }}>
                 <strong>
                   {data.senderIdentity?.name ?? data.senderIdentity?.email}
                 </strong>
@@ -87,8 +117,16 @@ export function BasicInvoice({ data }: InvoiceProps) {
               </p>
             </div>
             <div>
-              <h3 className="text-base font-semibold mb-1">Bill To:</h3>
-              <p className="text-gray-600">
+              <h3
+                style={{
+                  fontSize: "1rem",
+                  fontWeight: "600",
+                  marginBottom: "0.25rem",
+                }}
+              >
+                Bill To:
+              </h3>
+              <p style={{ color: "#4b5563" }}>
                 <strong>{data.customerIdentity?.name}</strong>
                 <br />
                 {data.customerIdentity?.phone && (
@@ -125,19 +163,52 @@ export function BasicInvoice({ data }: InvoiceProps) {
             </div>
           </div>
 
-          <table className="w-full border-collapse mb-6">
+          <table
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+              marginBottom: "1.5rem",
+            }}
+          >
             <thead>
-              <tr className="bg-gray-100">
-                <th className="p-2 border border-gray-200 text-left">
+              <tr style={{ backgroundColor: "#f3f4f6" }}>
+                <th
+                  style={{
+                    padding: "0.5rem",
+                    border: "1px solid #e5e7eb",
+                    textAlign: "left",
+                  }}
+                >
                   Description
                 </th>
-                <th className="p-2 border border-gray-200 text-right w-20">
+                <th
+                  style={{
+                    padding: "0.5rem",
+                    border: "1px solid #e5e7eb",
+                    textAlign: "right",
+                    width: "5rem",
+                  }}
+                >
                   Quantity
                 </th>
-                <th className="p-2 border border-gray-200 text-right w-24">
+                <th
+                  style={{
+                    padding: "0.5rem",
+                    border: "1px solid #e5e7eb",
+                    textAlign: "right",
+                    width: "6rem",
+                  }}
+                >
                   Unit Price
                 </th>
-                <th className="p-2 border border-gray-200 text-right w-24">
+                <th
+                  style={{
+                    padding: "0.5rem",
+                    border: "1px solid #e5e7eb",
+                    textAlign: "right",
+                    width: "6rem",
+                  }}
+                >
                   Amount
                 </th>
               </tr>
@@ -145,18 +216,38 @@ export function BasicInvoice({ data }: InvoiceProps) {
             <tbody>
               {data.lineItems?.map((lineItem: any, index: number) => (
                 <tr key={index}>
-                  <td className="p-2 border border-gray-200">
+                  <td
+                    style={{ padding: "0.5rem", border: "1px solid #e5e7eb" }}
+                  >
                     {lineItem.name}
                   </td>
-                  <td className="p-2 border border-gray-200 text-right">
+                  <td
+                    style={{
+                      padding: "0.5rem",
+                      border: "1px solid #e5e7eb",
+                      textAlign: "right",
+                    }}
+                  >
                     {lineItem.quantity}
                   </td>
-                  <td className="p-2 border border-gray-200 text-right">
+                  <td
+                    style={{
+                      padding: "0.5rem",
+                      border: "1px solid #e5e7eb",
+                      textAlign: "right",
+                    }}
+                  >
                     {typeof lineItem.unitPrice === "number"
                       ? lineItem.unitPrice.toFixed(2)
                       : lineItem.unitPrice}
                   </td>
-                  <td className="p-2 border border-gray-200 text-right">
+                  <td
+                    style={{
+                      padding: "0.5rem",
+                      border: "1px solid #e5e7eb",
+                      textAlign: "right",
+                    }}
+                  >
                     {(
                       (lineItem.quantity || 0) * (lineItem.unitPrice || 0)
                     ).toFixed(2)}
@@ -167,48 +258,96 @@ export function BasicInvoice({ data }: InvoiceProps) {
               <tr>
                 <td
                   colSpan={3}
-                  className="p-2 border border-gray-200 text-right font-semibold"
+                  style={{
+                    padding: "0.5rem",
+                    border: "1px solid #e5e7eb",
+                    textAlign: "right",
+                    fontWeight: "600",
+                  }}
                 >
                   Subtotal
                 </td>
-                <td className="p-2 border border-gray-200 text-right font-semibold">
+                <td
+                  style={{
+                    padding: "0.5rem",
+                    border: "1px solid #e5e7eb",
+                    textAlign: "right",
+                    fontWeight: "600",
+                  }}
+                >
                   {subtotal.toFixed(2)}
                 </td>
               </tr>
-              <tr className="bg-gray-50">
+              <tr style={{ backgroundColor: "#f9fafb" }}>
                 <td
                   colSpan={3}
-                  className="p-2 border border-gray-200 text-right"
+                  style={{
+                    padding: "0.5rem",
+                    border: "1px solid #e5e7eb",
+                    textAlign: "right",
+                  }}
                 >
                   Tax ({data.taxRate || 0}%)
                 </td>
-                <td className="p-2 border border-gray-200 text-right">
+                <td
+                  style={{
+                    padding: "0.5rem",
+                    border: "1px solid #e5e7eb",
+                    textAlign: "right",
+                  }}
+                >
                   {taxAmount.toFixed(2)}
                 </td>
               </tr>
               <tr>
                 <td
                   colSpan={3}
-                  className="p-2 border border-gray-200 text-right font-bold"
+                  style={{
+                    padding: "0.5rem",
+                    border: "1px solid #e5e7eb",
+                    textAlign: "right",
+                    fontWeight: "700",
+                  }}
                 >
                   Total
                 </td>
-                <td className="p-2 border border-gray-200 text-right font-bold">
+                <td
+                  style={{
+                    padding: "0.5rem",
+                    border: "1px solid #e5e7eb",
+                    textAlign: "right",
+                    fontWeight: "700",
+                  }}
+                >
                   {total.toFixed(2)}
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <div className="mt-6">
+          <div style={{ marginTop: "1.5rem" }}>
             {data.memo && (
-              <div className="mb-4 p-3 bg-gray-50 rounded-sm">
+              <div
+                style={{
+                  marginBottom: "1rem",
+                  padding: "0.75rem",
+                  backgroundColor: "#f9fafb",
+                  borderRadius: "0.125rem",
+                }}
+              >
                 <strong>Notes:</strong>
                 <br />
                 {data.memo}
               </div>
             )}
-            <p className="text-center text-gray-600 text-sm mt-4">
+            <p
+              style={{
+                textAlign: "center",
+                color: "#4b5563",
+                fontSize: "0.875rem",
+                marginTop: "1rem",
+              }}
+            >
               Thank you for your business!
             </p>
           </div>
