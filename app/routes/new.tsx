@@ -64,11 +64,13 @@ export default function New() {
           <h1 className="text-4xl leading-none font-medium mb-4 max-sm:text-2xl">
             New invoice
           </h1>
-          <Text mb={"4"}>
-            Enter your business details, customer information, and line items to
-            create an invoice. Once complete, you can preview and download as a
-            PDF.
-          </Text>
+          <Box className="max-w-2xl mb-4">
+            <Text mb={"4"}>
+              Enter your business details, customer information, and line items
+              to create an invoice. Once complete, you can preview and download
+              as a PDF.
+            </Text>
+          </Box>
         </Container>
       </Section>
       <Section className="!pt-0 max-sm:!pb-0">

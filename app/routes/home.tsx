@@ -1,6 +1,6 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
 import {
+  Box,
   Button,
   Card,
   Container,
@@ -25,7 +25,7 @@ export default function Home() {
     <div className="page-wrapper">
       <div className="py-4 flex justify-center border-b-2 border-dashed border-neutral-300">
         <p>
-          <strong>Invo.dev is coming soon! Estimated launch is Q1 2025</strong>
+          <strong>Invo.dev is live!</strong>
         </p>
       </div>
       <Section className="max-sm:!pb-0">
@@ -39,28 +39,30 @@ export default function Home() {
             A <i>simpler</i> way to create
             <br className="max-sm:hidden" /> professional invoices
           </h1>
-          <Text mb={"4"}>
-            Generate beautiful, professional invoices in seconds. Invo.dev
-            offers a simple form interface, instant PDF downloads, and
-            customizable templates—making invoice creation simple and elegant
-            for freelancers and small businesses.
-            <br />
-            <br />
-            <p>
-              <i>
-                Perfect for freelancers and small businesses who need a
-                straightforward invoicing solution without the complexity
-              </i>
-            </p>
-          </Text>
+          <Box className="max-w-2xl">
+            <Text mb={"4"}>
+              Generate beautiful, professional invoices in seconds. Invo.dev
+              offers a simple form interface and instant PDF downloads—making
+              invoice creation simple and elegant for freelancers and small
+              businesses.
+              <br />
+              <br />
+              <p>
+                <i>
+                  Perfect for freelancers and small businesses who need a
+                  straightforward invoicing solution without the complexity
+                </i>
+              </p>
+            </Text>
+          </Box>
           <div className="mt-6">
-            {/* <a
+            <a
               href="/new"
-              className="rt-reset rt-BaseButton rt-r-size-3 rt-variant-solid rt-Button"
+              className="rt-reset rt-BaseButton rt-r-size-4 rt-variant-solid rt-Button"
             >
               Get started
-            </a> */}
-            <Button disabled>Coming soon</Button>
+            </a>
+            {/* <Button size={'4'} disabled>Coming soon</Button> */}
           </div>
         </Container>
       </Section>
