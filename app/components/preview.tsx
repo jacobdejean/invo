@@ -16,7 +16,7 @@ export default function Preview({}: PreviewProps) {
           <div className="bg-white w-full aspect-[1/1.414] shadow-lg border border-neutral-300 overflow-auto scale-100 origin-top">
             <BasicInvoice data={invoice} />
           </div>
-          <Button size={"3"} className="!mt-6 !w-full" type="submit">
+          <Button size={"4"} className="!mt-6 !w-full" type="submit">
             Download invoice
           </Button>
         </div>

@@ -19,6 +19,10 @@ const links: Array<{
   //   label: "Docs",
   //   href: "/docs",
   // },
+  // {
+  //   label: "Need help?",
+  //   href: "/support",
+  // },
 ];
 
 export default function WebFooter() {
