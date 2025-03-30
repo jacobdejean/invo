@@ -17,5 +17,19 @@
   "tabWidth": 4,
   "useTabs": true,
   "embeddedLanguageFormatting": "auto",
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "plugins": ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"],
+  "importOrder":  [
+    "^\\./\\+",
+    "^react(-dom)?$",
+    "^react(-dom/.*)?$",
+    "^@radix-ui/(.*)$",
+    "^radix-ui$",
+    "^lucide-react$",
+    "^[a-zA-Z].*$",
+    "^~/components/(.*)$",
+    "^~/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": false,
+  "importOrderSortSpecifiers": true
 }

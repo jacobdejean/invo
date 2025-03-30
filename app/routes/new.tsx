@@ -1,46 +1,43 @@
 import type { Route } from './+types/home'
-import { Welcome } from '../welcome/welcome'
+import { useState } from 'react'
 import {
+	Box,
 	Button,
 	Card,
 	Container,
 	Flex,
 	Grid,
+	Heading,
 	Section,
 	Slider,
 	Tabs,
 	Text,
-	Heading,
-	TextArea,
-	Box
+	TextArea
 } from '@radix-ui/themes'
-import WebNav from '~/components/web-nav'
-import WebFooter from '~/components/web-footer'
-import {
-	FileText,
-	Percent,
-	Image,
-	Building2,
-	MapPin,
-	Phone,
-	Mail,
-	User,
-	Calendar,
-	Home,
-	Truck,
-	ShoppingCart,
-	Package,
-	Notebook,
-	Receipt
-} from 'lucide-react'
-import { useState } from 'react'
 import { Form } from 'radix-ui'
+import {
+	Building2,
+	Calendar,
+	FileText,
+	Home,
+	Image,
+	Mail,
+	MapPin,
+	Notebook,
+	Package,
+	Percent,
+	Phone,
+	Receipt,
+	ShoppingCart,
+	Truck,
+	User
+} from 'lucide-react'
 import Preview from '~/components/preview'
-import useInvoiceStore from '~/store'
-import SettingsInput from '~/components/settings-text-field'
 import SettingsArea from '~/components/settings-text-area'
-import { useFetcher } from 'react-router'
-import invariant from 'tiny-invariant'
+import SettingsInput from '~/components/settings-text-field'
+import WebFooter from '~/components/web-footer'
+import WebNav from '~/components/web-nav'
+import useInvoiceStore from '~/store'
 
 export function meta({}: Route.MetaArgs) {
 	return [

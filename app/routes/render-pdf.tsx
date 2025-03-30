@@ -1,11 +1,11 @@
-/*
-  render-pdf has an action setup to recieve invoice form data, render with cloudflare, then stream pdf back via the form navigation
-*/
-
-import log from '~/log'
 import type { Route } from './+types/render-pdf'
 import { renderToString } from 'react-dom/server'
 import { BasicInvoice } from '~/components/templates/basic'
+import log from '~/log'
+
+/*
+  render-pdf has an action setup to recieve invoice form data, render with cloudflare, then stream pdf back via the form navigation
+*/
 
 export async function action({ request, params }: Route.ActionArgs) {
 	const invoiceFormData = await request.formData()

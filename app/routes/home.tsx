@@ -10,8 +10,8 @@ import {
 	Tabs,
 	Text
 } from '@radix-ui/themes'
-import WebNav from '~/components/web-nav'
 import WebFooter from '~/components/web-footer'
+import WebNav from '~/components/web-nav'
 
 export function meta({}: Route.MetaArgs) {
 	return [

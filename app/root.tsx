@@ -1,18 +1,17 @@
+import type { Route } from './+types/root'
+import { useEffect } from 'react'
+import { Theme } from '@radix-ui/themes'
+import '@radix-ui/themes/styles.css'
+import posthog, { PostHog } from 'posthog-js'
 import {
-	isRouteErrorResponse,
 	Links,
 	Meta,
 	Outlet,
 	Scripts,
-	ScrollRestoration
+	ScrollRestoration,
+	isRouteErrorResponse
 } from 'react-router'
-import posthog, { PostHog } from 'posthog-js'
-
-import type { Route } from './+types/root'
 import './app.css'
-import '@radix-ui/themes/styles.css'
-import { Theme } from '@radix-ui/themes'
-import { useEffect } from 'react'
 
 export const links: Route.LinksFunction = () => [
 	{ rel: 'preconnect', href: 'https://fonts.googleapis.com' },
