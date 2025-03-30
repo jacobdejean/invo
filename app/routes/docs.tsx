@@ -64,16 +64,14 @@ export default function Docs() {
             <h2 className="text-2xl mt-10 mb-4">How it works</h2>
             <Text>
               Invo.dev is as minimal on the backend as it is on the frontend.
-              The tool simply packages up your form data and renders to a real,
+              The tool simply packages up your submission and renders to a real,
               high quality PDF with Cloudflare. No data is stored in this
               process by any party. The 'real PDF' note is important here, as
               many basic PDF rendering solutions really just render the page to
               an image, rastering every element to be opaque and unselectable.
-              <br />
-              <br />
-              Invo.dev goes the extra mile to convert form data first into
-              flexible HTML, then utilizes browser rendering technology to print
-              a sized page to PDF automatically.
+              Invo.dev goes the distance to utilizes browser rendering tech to
+              print a sized page to PDF automatically without any hacks or
+              tradeoffs.
             </Text>
           </Box>
         </Container>
