@@ -4,7 +4,11 @@ import { BasicInvoice } from '~/components/templates/basic'
 import log from '~/log'
 
 /*
-  render-pdf has an action setup to recieve invoice form data, render with cloudflare, then stream pdf back via the form navigation
+  render-pdf has an action setup to recieve invoice form data, render
+  with cloudflare, then stream pdf back via the form navigation
+
+  NOTE: Do not export a component from this module as that would break
+  how React Router handles the action's PDF response.
 */
 
 export async function action({ request, params }: Route.ActionArgs) {
@@ -112,6 +116,14 @@ async function createPdfResponse(invoiceData: any) {
 	}
 }
 
+/*
+  This is a fairly clunky way to parse the form data, but looking to prevent
+  arbitrary extra data being passed further down this process. This will likely
+  also be a key section in a future renovation to introduce more dynamic field
+  inputs and validation.
+
+  This doesn't apply to line items, which are arbitrarily passable by nature.
+*/
 function fromFormData(formData: FormData) {
 	console.log('FORM DATA', formData)
 	const lineItemKeys = [...formData.keys()].filter(key =>
