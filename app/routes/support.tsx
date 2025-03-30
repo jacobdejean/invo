@@ -33,6 +33,7 @@ export default function Supports() {
           <strong>Invo.dev is live!</strong>
         </p>
       </div>
+
       <Section className="max-sm:!pb-0">
         <Container>
           <WebNav />
@@ -54,12 +55,11 @@ export default function Supports() {
         </Container>
       </Section>
 
-      <Section className="!pt-0 max-sm:!pb-0">
+      {/* <Section className="!pt-0 max-sm:!pb-0">
         <Container>
           <Form.Form className="invoice-settings flex !gap-6 max-lg:flex-col max-lg:items-center">
             <Box className="flex pt-4 pb-4 items-stretch flex-none w-full max-w-[480px] relative">
               <Flex direction="column" gap="0" className="max-h-full">
-                {/* Header */}
                 <Flex direction="column" gap="4">
                   <TextField.Root
                     name="contact-name"
@@ -82,7 +82,8 @@ export default function Supports() {
             </Box>
           </Form.Form>
         </Container>
-      </Section>
+      </Section> */}
+
       <Section>
         <Container>
           <WebFooter />
