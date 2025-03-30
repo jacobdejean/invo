@@ -1,6 +1,6 @@
+import { produce } from 'immer'
 import yeast from 'yeast'
 import { create } from 'zustand'
-import { produce } from 'immer'
 
 export type Invoice = {
 	invoiceName: string

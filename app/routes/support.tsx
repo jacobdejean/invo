@@ -1,22 +1,7 @@
 import type { Route } from './+types/home'
-import {
-	Box,
-	Button,
-	Card,
-	Container,
-	Flex,
-	Grid,
-	Link,
-	Section,
-	Slider,
-	Tabs,
-	Text,
-	TextArea,
-	TextField
-} from '@radix-ui/themes'
-import WebNav from '~/components/web-nav'
+import { Box, Container, Link, Section, Text } from '@radix-ui/themes'
 import WebFooter from '~/components/web-footer'
-import { Form, Label } from 'radix-ui'
+import WebNav from '~/components/web-nav'
 
 export function meta({}: Route.MetaArgs) {
 	return [

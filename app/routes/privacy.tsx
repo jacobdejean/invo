@@ -1,23 +1,11 @@
 import type { Route } from './+types/home'
-import {
-	Box,
-	Button,
-	Card,
-	Container,
-	Grid,
-	Heading,
-	Link,
-	Section,
-	Slider,
-	Tabs,
-	Text
-} from '@radix-ui/themes'
-import WebNav from '~/components/web-nav'
+import { Box, Container, Link, Section, Text } from '@radix-ui/themes'
 import WebFooter from '~/components/web-footer'
+import WebNav from '~/components/web-nav'
 
 export function meta({}: Route.MetaArgs) {
 	return [
-		{ title: 'Home - invo.dev' },
+		{ title: 'Privacy - invo.dev' },
 		{ name: 'description', content: 'Welcome to Invo.dev!' }
 	]
 }
