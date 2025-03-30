@@ -50,7 +50,7 @@ export default function Home() {
               <p>
                 <i>
                   Perfect for freelancers and small businesses who need a
-                  straightforward invoicing solution without the complexity
+                  straightforward invoicing solution without the complexity.
                 </i>
               </p>
             </Text>

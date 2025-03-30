@@ -7,10 +7,10 @@ const links: Array<{
   label: string;
   href: string;
 }> = [
-  // {
-  //   label: "Features",
-  //   href: "#features",
-  // },
+  {
+    label: "Docs",
+    href: "/docs",
+  },
   // {
   //   label: "Pricing",
   //   href: "#pricing",
