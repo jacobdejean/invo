@@ -17,8 +17,8 @@ import WebNav from '~/components/web-nav'
 
 export function meta({}: Route.MetaArgs) {
 	return [
-		{ title: 'Home - invo.dev' },
-		{ name: 'description', content: 'Welcome to Invo.dev!' }
+		{ title: 'Docs - invo.dev' },
+		{ name: 'description', content: 'Read the docs for Invo.dev' }
 	]
 }
 

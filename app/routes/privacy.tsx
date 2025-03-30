@@ -6,11 +6,11 @@ import WebNav from '~/components/web-nav'
 export function meta({}: Route.MetaArgs) {
 	return [
 		{ title: 'Privacy - invo.dev' },
-		{ name: 'description', content: 'Welcome to Invo.dev!' }
+		{ name: 'description', content: 'Read the privacy policy for Invo.dev' }
 	]
 }
 
-export default function Docs() {
+export default function Privacy() {
 	return (
 		<div className='page-wrapper'>
 			<div className='flex justify-center border-b-2 border-dashed border-neutral-300 py-4'>

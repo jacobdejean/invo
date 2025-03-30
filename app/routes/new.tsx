@@ -42,7 +42,7 @@ import useInvoiceStore from '~/store'
 export function meta({}: Route.MetaArgs) {
 	return [
 		{ title: 'New Invoice - invo.dev' },
-		{ name: 'description', content: 'Welcome to Invo.dev!' }
+		{ name: 'description', content: 'Create a new invoice' }
 	]
 }
 
