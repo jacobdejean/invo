@@ -1,0 +1,88 @@
+import type { Route } from "./+types/home";
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Grid,
+  Heading,
+  Link,
+  Section,
+  Slider,
+  Tabs,
+  Text,
+} from "@radix-ui/themes";
+import WebNav from "~/components/web-nav";
+import WebFooter from "~/components/web-footer";
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Home - invo.dev" },
+    { name: "description", content: "Welcome to Invo.dev!" },
+  ];
+}
+
+export default function Docs() {
+  return (
+    <div className="page-wrapper">
+      <div className="py-4 flex justify-center border-b-2 border-dashed border-neutral-300">
+        <p>
+          <strong>Invo.dev is live!</strong>
+        </p>
+      </div>
+      <Section className="max-sm:!pb-0">
+        <Container>
+          <WebNav />
+        </Container>
+      </Section>
+
+      <Section className="!pt-0 !pb-0">
+        <Container>
+          <h1 className="text-4xl leading-none font-medium mb-4 max-sm:text-2xl">
+            Privacy Policy
+          </h1>
+          <Box className="max-w-2xl mb-4">
+            <Text>
+              Last Updated 3/29/2025
+              <br />
+              <br />
+              The goal of this writeup is to outline what kind of information we
+              collect and what we do with it.{" "}
+              <strong>
+                We (invo.dev) do not analyze, store, or sell any data that you
+                submit.
+              </strong>
+              <br />
+              <br />
+              <p className="mb-2">What third parties see my data?</p>
+              <ul className="flex flex-col gap-2">
+                <li>
+                  - We anonymously count the number of visitors to our site and
+                  the number of submissions we process via{" "}
+                  <Link href="https://posthog.com/">Posthog</Link>. Cookies are
+                  used for this.
+                </li>
+                <li>
+                  - We compile your submission and render it with a{" "}
+                  <Link href="https://www.cloudflare.com/">Cloudflare</Link>{" "}
+                  API. Your invoice data is not stored for any amount of time on
+                  our infrastructure.
+                </li>
+              </ul>
+              <br />
+              <br />
+              For any concerns and requests, please contact us at{" "}
+              <Link href="mailto:support@invo.dev">support@invo.dev</Link>.
+            </Text>
+          </Box>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container>
+          <WebFooter />
+        </Container>
+      </Section>
+    </div>
+  );
+}

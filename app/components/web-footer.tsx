@@ -1,4 +1,5 @@
 import { Button } from "@radix-ui/themes";
+import { useLocation } from "react-router";
 import { Link, useNavigate } from "react-router";
 
 export type WebNav = {};
@@ -19,14 +20,19 @@ const links: Array<{
   //   label: "Docs",
   //   href: "/docs",
   // },
-  // {
-  //   label: "Need help?",
-  //   href: "/support",
-  // },
+  {
+    label: "Need help?",
+    href: "/support",
+  },
+  {
+    label: "Privacy",
+    href: "/privacy",
+  },
 ];
 
 export default function WebFooter() {
   // const navigate = useNavigate();
+  const location = useLocation();
   return (
     <footer className="sticky top-0 flex py-12">
       <ul className="flex flex-col gap-5">
@@ -34,7 +40,13 @@ export default function WebFooter() {
           Invo.dev
         </a> */}
         {links.map((link) => (
-          <Link key={link.label} to={link.href} className="text-lg">
+          <Link
+            key={link.label}
+            to={link.href}
+            className={`text-lg ${
+              location.pathname === link.href ? "hidden" : ""
+            }`}
+          >
             {link.label}
           </Link>
         ))}
