@@ -10,7 +10,7 @@ export function meta({}: Route.MetaArgs) {
 	]
 }
 
-export default function Supports() {
+export default function Support() {
 	return (
 		<div className='page-wrapper'>
 			<div className='flex justify-center border-b-2 border-dashed border-neutral-300 py-4'>
