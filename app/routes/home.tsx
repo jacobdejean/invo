@@ -61,7 +61,7 @@ export default function Home() {
 							href='/new'
 							className='rt-reset rt-BaseButton rt-r-size-4 rt-variant-solid rt-Button'
 						>
-							Get started
+							Create a new invoice
 						</a>
 						{/* <Button size={'4'} disabled>Coming soon</Button> */}
 					</div>
