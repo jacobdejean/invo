@@ -37,8 +37,8 @@ export default function Privacy() {
 							The goal of this writeup is to outline what kind of
 							information we collect and what we do with it.{' '}
 							<strong>
-								We (invo.dev) do not analyze, store, or sell any
-								data that you submit.
+								We do not analyze, store, or sell any data that
+								you submit.
 							</strong>
 							<br />
 							<br />
