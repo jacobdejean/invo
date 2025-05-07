@@ -6,5 +6,6 @@ export default [
 	route('support', 'routes/support.tsx'),
 	route('privacy', 'routes/privacy.tsx'),
 	route('new', 'routes/new.tsx'),
-	route('render-pdf', 'routes/render-pdf.tsx')
+	route('render-pdf', 'routes/render-pdf.tsx'),
+	route('/api/new', 'routes/api/new.tsx'),
 ] satisfies RouteConfig

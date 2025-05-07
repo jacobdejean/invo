@@ -17,7 +17,7 @@ export async function action({ request, params }: Route.ActionArgs) {
 	return createPdfResponse(invoiceData)
 }
 
-async function createPdfResponse(invoiceData: any) {
+export async function createPdfResponse(invoiceData: any) {
 	try {
 		const cloudflareAccountId =
 			process.env.CLOUDFLARE_ACCOUNT_ID ?? 'env missing variable'
@@ -124,7 +124,7 @@ async function createPdfResponse(invoiceData: any) {
 
   This doesn't apply to line items, which are arbitrarily passable by nature.
 */
-function fromFormData(formData: FormData) {
+export function fromFormData(formData: FormData) {
 	console.log('FORM DATA', formData)
 	const lineItemKeys = [...formData.keys()].filter(key =>
 		key.startsWith('lineItem')
