@@ -3,6 +3,7 @@ import {
 	Box,
 	Button,
 	Card,
+	Code,
 	Container,
 	Grid,
 	Heading,
@@ -12,6 +13,7 @@ import {
 	Tabs,
 	Text
 } from '@radix-ui/themes'
+import { CodeBlock } from 'react-code-blocks'
 import WebFooter from '~/components/web-footer'
 import WebNav from '~/components/web-nav'
 
@@ -21,6 +23,9 @@ export function meta({}: Route.MetaArgs) {
 		{ name: 'description', content: 'Read the docs for Invo.dev' }
 	]
 }
+
+const example = `const response = await fetch('https://invo.dev/api/new', {\n\tmethod: "post",\n\tbody: formData,\n\theaders: {\n\t\t'Content-Type': 'application/x-www-form-urlencoded',\n\t\t'Authorization': 'Bearer token'\n }})`
+const exampleHeaders = `{\n\t"Content-Type": "application/pdf",\n\t"Content-Disposition": "attachment; filename='INVOICENUMBER.pdf'"\n}`
 
 export default function Docs() {
 	return (
@@ -50,8 +55,8 @@ export default function Docs() {
 							overhead of a full billing solution.
 							<br />
 							<br />
-							You can make feature suggestions my emailing us and
-							if you encounter any bugs, please send an email to{' '}
+							You can make feature suggestions or bug reports by
+							emailing us at{' '}
 							<Link href='mailto:support@invo.dev'>
 								support@invo.dev
 							</Link>
@@ -68,17 +73,69 @@ export default function Docs() {
 						</Text>
 						<h2 className='mt-10 mb-4 text-2xl'>How it works</h2>
 						<Text>
-							Invo.dev is as minimal on the backend as it is on
-							the frontend. The tool simply packages up your
-							submission and renders to a real, high quality PDF
-							with Cloudflare. No data is stored in this process
-							by any party. The 'real PDF' note is important here,
-							as many basic PDF rendering solutions really just
-							render the page to an image, rastering every element
-							to be opaque and unselectable. Invo.dev goes the
-							distance to utilizes browser rendering tech to print
-							a sized page to PDF automatically without any hacks
-							or tradeoffs.
+							The tool uses your submission to render a real, high
+							quality PDF with Cloudflare's Browser Rendering API.
+							Many popular PDF rendering solutions get this wrong
+							by just rendering the content to an image,
+							rasterizing every element to be opaque and
+							unselectable. This is primarily due to them
+							attempting to render in constrained browser
+							environments. <br />
+							<br />
+							Invo.dev circumvents these constraints by utilizing
+							a headless cloud browser environment to print a
+							sized page to PDF automatically without any hacks.
+							<br />
+							<br />
+							This also sets Invo.dev up as a great platform for
+							automated invoice generation as we can provide you
+							PDFs asyncronously and in bulk.
+						</Text>
+						<h2 className='mt-10 mb-4 text-2xl'>API</h2>
+						<Text>
+							Invo.dev offers a simple API for programmatic
+							invoice pdf creation. To use the endpoint you'll
+							need to register for an access token. This API is
+							free to use at a rate limit of 100 requests per
+							month. We plan to introduce a paid tier in the near
+							future to support higher limits.
+						</Text>
+						<br />
+						<br />
+						<Text>Available endpoints:</Text>
+						<br />
+						<Text>
+							<Code>POST</Code>
+							<Code>https://invo.dev/api/new</Code>
+							<br />
+						</Text>
+						<br />
+						<Text>
+							To use this endpoint make a post request containing
+							the appropriate form data.
+						</Text>
+						<br />
+						<br />
+						<Text>Example:</Text>
+						<CodeBlock
+							text={example}
+							language={'js'}
+							showLineNumbers={true}
+							wrapLines
+						/>
+						<br />
+						<Text>
+							<br />
+							A successful request will result in these response
+							these headers along with a pdf blob.
+							<br />
+							<br />
+							<CodeBlock
+								text={exampleHeaders}
+								language={'json'}
+								showLineNumbers={true}
+								wrapLines
+							/>
 						</Text>
 					</Box>
 				</Container>
