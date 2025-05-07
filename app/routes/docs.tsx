@@ -85,13 +85,13 @@ export default function Docs() {
 							Invo.dev circumvents these constraints by utilizing
 							a headless cloud browser environment to print a
 							sized page to PDF automatically without any hacks.
-							<br />
+							{/* <br />
 							<br />
 							This also sets Invo.dev up as a great platform for
 							automated invoice generation as we can provide you
-							PDFs asyncronously and in bulk.
+							PDFs asyncronously and in bulk. */}
 						</Text>
-						<h2 className='mt-10 mb-4 text-2xl'>API</h2>
+						{/* <h2 className='mt-10 mb-4 text-2xl'>API</h2>
 						<Text>
 							Invo.dev offers a simple API for programmatic
 							invoice pdf creation. To use the endpoint you'll
@@ -136,7 +136,7 @@ export default function Docs() {
 								showLineNumbers={true}
 								wrapLines
 							/>
-						</Text>
+						</Text> */}
 					</Box>
 				</Container>
 			</Section>
