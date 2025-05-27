@@ -34,11 +34,11 @@ export default function Privacy() {
 							Last Updated 3/29/2025
 							<br />
 							<br />
-							The goal of this writeup is to outline what kind of
-							information we collect and what we do with it.{' '}
+							What kind of information we collect?
 							<strong>
-								We do not analyze, store, or sell any data that
-								you submit.
+								We track the number of times this website has
+								been used to generate an invoice. We do not
+								track, analyze, ,
 							</strong>
 							<br />
 							<br />
