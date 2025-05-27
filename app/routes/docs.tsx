@@ -24,8 +24,8 @@ export function meta({}: Route.MetaArgs) {
 	]
 }
 
-const example = `const response = await fetch('https://invo.dev/api/new', {\n\tmethod: "post",\n\tbody: formData,\n\theaders: {\n\t\t'Content-Type': 'application/x-www-form-urlencoded',\n\t\t'Authorization': 'Bearer token'\n }})`
-const exampleHeaders = `{\n\t"Content-Type": "application/pdf",\n\t"Content-Disposition": "attachment; filename='INVOICENUMBER.pdf'"\n}`
+export const example = `const response = await fetch('https://invo.dev/api/new', {\n\tmethod: "post",\n\tbody: formData,\n\theaders: {\n\t\t'Content-Type': 'application/x-www-form-urlencoded',\n\t\t'Authorization': 'Bearer token'\n }})`
+export const exampleHeaders = `{\n\t"Content-Type": "application/pdf",\n\t"Content-Disposition": "attachment; filename='INVOICENUMBER.pdf'"\n}`
 
 export default function Docs() {
 	return (
@@ -78,9 +78,8 @@ export default function Docs() {
 							Many popular PDF rendering solutions get this wrong
 							by just rendering the content to an image,
 							rasterizing every element to be opaque and
-							unselectable. This is primarily due to them
-							attempting to render in constrained browser
-							environments. <br />
+							unselectable. This is due to them attempting to
+							render in a browser constrained environment. <br />
 							<br />
 							Invo.dev circumvents these constraints by utilizing
 							a headless cloud browser environment to print a

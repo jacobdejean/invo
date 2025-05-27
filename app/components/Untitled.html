@@ -1,0 +1,42 @@
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const utmParams = [
+			'utm_source',
+			'utm_medium',
+			'utm_campaign',
+			'utm_term',
+			'utm_content',
+			'utm_adgroup'
+		]
+
+		if (!sessionStorage.getItem('originalUtmParams')) {
+			const params = {}
+			const urlParams = new URLSearchParams(window.location.search)
+
+			utmParams.forEach(param => {
+				const value = urlParams.get(param)
+				if (value) params[param] = value
+			})
+
+			if (Object.keys(params).length) {
+				sessionStorage.setItem(
+					'originalUtmParams',
+					JSON.stringify(params)
+				)
+			}
+		}
+		if (sessionStorage.getItem('originalUtmParams')) {
+			const storedParams = JSON.parse(
+				sessionStorage.getItem('originalUtmParams')
+			)
+
+			document.querySelectorAll('a[href*="/book-call"]').forEach(link => {
+				const url = new URL(link.href)
+				Object.entries(storedParams).forEach(([key, value]) => {
+					url.searchParams.set(key, value)
+				})
+				link.href = url.toString()
+			})
+		}
+	})
+</script>

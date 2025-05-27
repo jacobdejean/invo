@@ -3,15 +3,19 @@ import {
 	Box,
 	Button,
 	Card,
+	Code,
 	Container,
 	Grid,
+	Link,
 	Section,
 	Slider,
 	Tabs,
 	Text
 } from '@radix-ui/themes'
+import { CodeBlock } from 'react-code-blocks'
 import WebFooter from '~/components/web-footer'
 import WebNav from '~/components/web-nav'
+import { example, exampleHeaders } from './docs'
 
 export function meta({}: Route.MetaArgs) {
 	return [
@@ -23,17 +27,17 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
 	return (
 		<div className='page-wrapper'>
-			<div className='flex justify-center border-b-2 border-dashed border-neutral-300 py-4'>
+			{/* <div className='flex justify-center border-b-2 border-dashed border-neutral-300 py-4'>
 				<p>
 					<strong>Invo.dev is live!</strong>
 				</p>
-			</div>
+			</div> */}
 			<Section className='max-sm:!pb-0'>
 				<Container>
 					<WebNav />
 				</Container>
 			</Section>
-			<Section className='max-sm:!pt-0'>
+			<Section className='!pt-0'>
 				<Container>
 					<h1 className='mb-4 text-6xl leading-none font-medium max-sm:text-4xl'>
 						A <i>simpler</i> way to create
@@ -56,218 +60,130 @@ export default function Home() {
 							</p>
 						</Text>
 					</Box>
-					<div className='mt-6'>
+					<div className='mt-6 flex gap-4'>
 						<a
 							href='/new'
 							className='rt-reset rt-BaseButton rt-r-size-4 rt-variant-solid rt-Button'
 						>
 							Create a new invoice
 						</a>
+						<a
+							href='#api'
+							className='rt-reset rt-BaseButton rt-r-size-4 rt-variant-soft rt-Button'
+						>
+							Explore the API
+						</a>
 						{/* <Button size={'4'} disabled>Coming soon</Button> */}
 					</div>
 				</Container>
 			</Section>
-			<Section id='persona' className='hidden'>
+			<Section className='!pb-0'>
 				<Container>
-					<Grid gap={'6'} columns={'2'}>
-						<Card className='p-6'>
-							<h2 className='mb-4 text-4xl'>Freelancers</h2>
-							<Text className='mb-4'>
-								Tired of spending hours creating
-								professional-looking invoices? Invo.dev helps
-								you create beautiful invoices in seconds so you
-								can focus on what you do best - your work.
-							</Text>
-							<div className='mt-4 aspect-square bg-neutral-200' />
-						</Card>
-						<Card className='p-6'>
-							<h2 className='mb-4 text-4xl'>Small Businesses</h2>
-							<Text className='mb-4'>
-								Need a simple invoicing solution without the
-								overhead of complex accounting software?
-								Invo.dev provides just what you need - clean,
-								professional invoices with minimal effort.
-							</Text>
-							<div className='mt-4 aspect-square bg-neutral-200' />
-						</Card>
-					</Grid>
-				</Container>
-			</Section>
-			<Section id='features' className='hidden'>
-				<Container>
-					<Grid
-						columns={'2'}
-						gap={'6'}
-						className='grid-cols-[0.25fr,0.75fr]'
-					>
-						<div>
-							<h2 className='mb-4 text-4xl'>Features</h2>
-							<Text className='mb-4'>
-								Invo.dev focuses on simplicity and efficiency,
-								helping you create professional invoices with
-								minimal effort.
-							</Text>
-						</div>
-						<Grid gap={'2'} columns={'3'}>
-							<Card className='p-4'>
-								<h3 className='mb-4 text-2xl'>
-									Simple Form Interface
-								</h3>
-								<Text>
-									Create invoices by filling out a
-									straightforward form—no complex menus or
-									settings.
-								</Text>
-							</Card>
-							<Card className='p-4'>
-								<h3 className='mb-4 text-2xl'>
-									Professional PDF Output
-								</h3>
-								<Text>
-									Generate clean, well-formatted PDFs that
-									impress clients and ensure timely payments.
-								</Text>
-							</Card>
-							<Card className='p-4'>
-								<h3 className='mb-4 text-2xl'>
-									Customizable Templates
-								</h3>
-								<Text>
-									Choose from elegant templates that can be
-									adjusted to match your brand identity.
-								</Text>
-							</Card>
-							<Card className='p-4'>
-								<h3 className='mb-4 text-2xl'>
-									Line Item Management
-								</h3>
-								<Text>
-									Easily add, edit, and organize invoice items
-									with automatic calculation of totals.
-								</Text>
-							</Card>
-							<Card className='p-4'>
-								<h3 className='mb-4 text-2xl'>
-									No Account Required
-								</h3>
-								<Text>
-									Generate invoices instantly without creating
-									accounts or sharing unnecessary personal
-									information.
-								</Text>
-							</Card>
-							<Card className='p-4'>
-								<h3 className='mb-4 text-2xl'>
-									Multiple Currency Support
-								</h3>
-								<Text>
-									Create invoices in your local currency with
-									proper formatting and symbols.
-								</Text>
-							</Card>
-						</Grid>
-					</Grid>
-				</Container>
-			</Section>
-			<Section id='pricing' className='hidden'>
-				<Container>
-					<Grid gap={'6'} columns={'2'} mb={'6'}>
-						<Card className='p-6'>
-							<h2 className='mb-4 text-4xl'>Free</h2>
-							<Text className='mb-4'>
-								<Text className='font-bold'>$0/mo</Text>
-								<br />
-								Up to 5 invoices per month.
-								<br /> Basic templates only
-							</Text>
-						</Card>
-						<Card className='p-6'>
-							<h2 className='mb-4 text-4xl'>Pro</h2>
-							<Text className='mb-4'>
-								<strong>$9.99/mo</strong>
-								<br />
-								Unlimited invoices.
-								<br /> All premium templates included
-							</Text>
-						</Card>
-					</Grid>
-					<Card className='p-6'>
-						<Text>How many invoices do you need?</Text>
-
-						<Slider defaultValue={[50]} radius='small' />
-					</Card>
-				</Container>
-			</Section>
-			<Section id='how-it-works' className='hidden'>
-				<Container>
-					<Grid
-						columns={'2'}
-						gap={'6'}
-						className='grid-cols-[0.5fr,0.5fr]'
-					>
-						<div>
-							<h2 className='mb-4 text-4xl'>How does it work?</h2>
-							<Text className='mb-4'>
-								Create professional invoices in three simple
-								steps - no accounting knowledge required.
-							</Text>
-						</div>
-						<Grid gap={'2'} columns={'1'}>
-							<Card className='p-4'>
-								<h3 className='mb-4 text-2xl'>
-									1. Fill out the form
-								</h3>
-								<Text>
-									Enter your business details, client
-									information, and line items in our intuitive
-									form. Add descriptions, quantities, rates,
-									and taxes as needed. Our form adjusts as you
-									type to ensure a clean invoice.
-								</Text>
-							</Card>
-							<Card className='p-4'>
-								<h3 className='mb-4 text-2xl'>
-									2. Preview your invoice
-								</h3>
-								<Text>
-									See a real-time preview of how your invoice
-									will look when downloaded. Make adjustments
-									as needed until everything looks perfect.
-									Choose from different templates to match
-									your style.
-								</Text>
-							</Card>
-							<Card className='p-4'>
-								<h3 className='mb-4 text-2xl'>
-									3. Download as PDF
-								</h3>
-								<Text>
-									With one click, download your professional
-									invoice as a PDF ready to send to clients.
-									No watermarks, no hassle - just a clean,
-									professional document that helps you get
-									paid faster.
-								</Text>
-							</Card>
-						</Grid>
-					</Grid>
-				</Container>
-			</Section>
-			<Section className='hidden'>
-				<Container>
-					<div className='flex flex-col items-center'>
-						<h2 className='mb-4 text-4xl'>
-							Create professional invoices today
-						</h2>
-						<Text className='mb-4'>
-							Stop struggling with complex tools and get paid
-							faster with beautiful invoices.
+					<h2 className='mb-8 text-3xl leading-none font-medium max-sm:text-2xl'>
+						Getting Started
+					</h2>
+					<Box className='mb-4 max-w-2xl'>
+						<Text mb={'4'}>
+							Invo.dev is a minimal pdf invoice generation tool.
+							It's designed to be simple and easy to use, so you
+							can focus on what you do. It was born out of a
+							personal need to generate PDF invoices without the
+							overhead of a full billing solution.
+							<br />
+							<br />
+							You can make feature suggestions or bug reports by
+							emailing us at{' '}
+							<Link href='mailto:support@invo.dev'>
+								support@invo.dev
+							</Link>
+							.
 						</Text>
-						{/* <Button>Get started </Button> */}
-						<Button disabled>Coming soon</Button>
-					</div>
+						<br />
+						<Text>
+							To get started, simply navigate to{' '}
+							<Link href='/new'>invo.dev/new</Link> where you will
+							find a form to fill. Proceed to enter as many fields
+							as you find necessary, and then click the "Generate
+							invoice" button. After just a few seconds, a
+							download should automatically start.
+						</Text>
+						<h2 className='mt-10 mb-4 text-2xl'>How it works</h2>
+						<Text>
+							The tool uses your submission to render a real, high
+							quality PDF with Cloudflare's Browser Rendering API.
+							Many popular PDF rendering solutions get this wrong
+							by just rendering the content to an image,
+							rasterizing every element to be opaque and
+							unselectable. This is due to them attempting to
+							render in a browser constrained environment. <br />
+							<br />
+							Invo.dev circumvents this by utilizing a headless
+							cloud browser environment to print a sized page to
+							PDF automatically without any hacks.
+							<br />
+							<br />
+							This also sets Invo.dev up as a great platform for
+							automated invoice generation as we can provide you
+							PDFs asyncronously and in bulk.
+						</Text>
+					</Box>
 				</Container>
 			</Section>
+			<Section id='api'>
+				<Container>
+					<h2 className='mb-8 text-3xl leading-none font-medium max-sm:text-2xl'>
+						API
+					</h2>
+					<Box className='mb-4 max-w-2xl'>
+						<Text>
+							Invo.dev offers a simple API for programmatic
+							invoice pdf creation. To use the endpoint you'll
+							need to register for an access token. This API is
+							free to use at a rate limit of 100 requests per
+							month. We plan to introduce a paid tier in the near
+							future to support higher limits.
+						</Text>
+						<br />
+						<br />
+						<Text>Available endpoints:</Text>
+						<br />
+						<Text>
+							<Code>POST</Code>
+							<Code>https://invo.dev/api/new</Code>
+							<br />
+						</Text>
+						<br />
+						<Text>
+							To use this endpoint make a post request containing
+							the appropriate form data.
+						</Text>
+						<br />
+						<br />
+						<Text>Example:</Text>
+						<CodeBlock
+							text={example}
+							language={'js'}
+							showLineNumbers={true}
+							wrapLines
+						/>
+						<br />
+						<Text>
+							<br />
+							A successful request will result in these response
+							these headers along with a pdf blob.
+							<br />
+							<br />
+							<CodeBlock
+								text={exampleHeaders}
+								language={'json'}
+								showLineNumbers={true}
+								wrapLines
+							/>
+						</Text>
+					</Box>
+				</Container>
+			</Section>
+
 			<Section>
 				<Container>
 					<WebFooter />
