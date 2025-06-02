@@ -8,4 +8,6 @@ export default [
 	route('new', 'routes/new.tsx'),
 	route('render-pdf', 'routes/render-pdf.tsx'),
 	route('/api/new', 'routes/api/new.tsx'),
+	route('/api/inbox', 'routes/api/inbox.tsx'),
+	route('/api/token', 'routes/api/token.tsx')
 ] satisfies RouteConfig

@@ -116,14 +116,6 @@ export async function createPdfResponse(invoiceData: any) {
 	}
 }
 
-/*
-  This is a fairly clunky way to parse the form data, but looking to prevent
-  arbitrary extra data being passed further down this process. This will likely
-  also be a key section in a future renovation to introduce more dynamic field
-  inputs and validation.
-
-  This doesn't apply to line items, which are arbitrarily passable by nature.
-*/
 export function fromFormData(formData: FormData) {
 	console.log('FORM DATA', formData)
 	const lineItemKeys = [...formData.keys()].filter(key =>

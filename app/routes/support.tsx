@@ -1,5 +1,16 @@
 import type { Route } from './+types/home'
-import { Box, Container, Link, Section, Text } from '@radix-ui/themes'
+import {
+	Box,
+	Button,
+	Container,
+	Flex,
+	Link,
+	Section,
+	Text,
+	TextArea,
+	TextField
+} from '@radix-ui/themes'
+import { Form } from 'radix-ui'
 import WebFooter from '~/components/web-footer'
 import WebNav from '~/components/web-nav'
 
@@ -13,11 +24,11 @@ export function meta({}: Route.MetaArgs) {
 export default function Support() {
 	return (
 		<div className='page-wrapper'>
-			<div className='flex justify-center border-b-2 border-dashed border-neutral-300 py-4'>
+			{/* <div className='flex justify-center border-b-2 border-dashed border-neutral-300 py-4'>
 				<p>
 					<strong>Invo.dev is live!</strong>
 				</p>
-			</div>
+			</div> */}
 
 			<Section className='max-sm:!pb-0'>
 				<Container>
@@ -37,40 +48,51 @@ export default function Support() {
 							<Link href='mailto:support@invo.dev'>
 								support@invo.dev
 							</Link>{' '}
-							or drop a message below.
+							.
 						</Text>
 					</Box>
 				</Container>
 			</Section>
 
-			{/* <Section className="!pt-0 max-sm:!pb-0">
-        <Container>
-          <Form.Form className="invoice-settings flex !gap-6 max-lg:flex-col max-lg:items-center">
-            <Box className="flex pt-4 pb-4 items-stretch flex-none w-full max-w-[480px] relative">
-              <Flex direction="column" gap="0" className="max-h-full">
-                <Flex direction="column" gap="4">
-                  <TextField.Root
-                    name="contact-name"
-                    placeholder="Your name"
-                    size="3"
-                  ></TextField.Root>
-                  <TextField.Root
-                    name="contact-email"
-                    placeholder="Your email"
-                    size="3"
-                  ></TextField.Root>
-                  <TextArea size="3" placeholder="Your message" />
-                  <Box>
-                    <Button size="4" type="submit">
-                      Send Message
-                    </Button>
-                  </Box>
-                </Flex>
-              </Flex>
-            </Box>
-          </Form.Form>
-        </Container>
-      </Section> */}
+			{/* <Section className='!pt-0 max-sm:!pb-0'>
+				<Container>
+					<Form.Form
+						action={'/api/inbox'}
+						method='POST'
+						className='invoice-settings flex !gap-6 max-lg:flex-col max-lg:items-center'
+					>
+						<Box className='flex pt-4 pb-4 items-stretch flex-none w-full max-w-[480px] relative'>
+							<Flex
+								direction='column'
+								gap='0'
+								className='max-h-full'
+							>
+								<Flex direction='column' gap='4'>
+									<TextField.Root
+										name='contact-name'
+										placeholder='Your name'
+										size='3'
+									></TextField.Root>
+									<TextField.Root
+										name='contact-email'
+										placeholder='Your email'
+										size='3'
+									></TextField.Root>
+									<TextArea
+										size='3'
+										placeholder='Your message'
+									/>
+									<Box>
+										<Button size='4' type='submit'>
+											Send Message
+										</Button>
+									</Box>
+								</Flex>
+							</Flex>
+						</Box>
+					</Form.Form>
+				</Container>
+			</Section> */}
 
 			<Section>
 				<Container>
