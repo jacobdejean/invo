@@ -24,17 +24,31 @@ export function meta({}: Route.MetaArgs) {
 	]
 }
 
-export const example = `const response = await fetch('https://invo.dev/api/new', {\n\tmethod: "post",\n\tbody: formData,\n\theaders: {\n\t\t'Content-Type': 'application/x-www-form-urlencoded',\n\t\t'Authorization': 'Bearer token'\n }})`
+const payload = {
+	invoiceName: 'INV-PSj14ga',
+	invoiceNumber: 'INV-2025-0601',
+	taxRate: 8,
+	'senderIdentity.name': '...',
+	'senderIdentity.email': '...',
+	'customerIdentity.name': '...',
+	'customerIdentity.email': '...',
+	'lineItems[0].name': '...',
+	'lineItems[0].quantity': '...',
+	'lineItems[0].unitPrice': '...'
+}
+// const form = Object.entries(payload).reduce((fd, [key, val]) => (fd.append(key, val), fd), new FormData());
+
+export const example = `const formData = ;\nconst response = await fetch('https://invo.dev/api/new', {\n\tmethod: "post",\n\tbody: formData,\n\theaders: {\n\t\t'Content-Type': 'application/x-www-form-urlencoded',\n\t\t'Authorization': 'Bearer token'\n }})`
 export const exampleHeaders = `{\n\t"Content-Type": "application/pdf",\n\t"Content-Disposition": "attachment; filename='INVOICENUMBER.pdf'"\n}`
 
 export default function Docs() {
 	return (
 		<div className='page-wrapper'>
-			<div className='flex justify-center border-b-2 border-dashed border-neutral-300 py-4'>
+			{/* <div className='flex justify-center border-b-2 border-dashed border-neutral-300 py-4'>
 				<p>
 					<strong>Invo.dev is live!</strong>
 				</p>
-			</div>
+			</div> */}
 			<Section className='max-sm:!pb-0'>
 				<Container>
 					<WebNav />

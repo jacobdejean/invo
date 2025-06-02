@@ -15,21 +15,18 @@ export async function checkToken(token: string) {
 	return result
 }
 
-export async function createToken() {
+export async function createToken(userId: string) {
 	const { result, error } = await unkey.keys.create({
-		apiId: 'api_123',
-		externalId: 'user_1234',
-		meta: {
-			hello: 'world'
-		},
+		apiId: process.env.UNKEY_API_ID,
+		externalId: userId,
 		expires: 1686941966471,
 		ratelimit: {
 			async: true,
-			duration: 1000,
-			limit: 10
+			duration: 2629800000,
+			limit: 100
 		},
 		remaining: 1000,
-		name: 'Token',
+		name: `${userId}'s Token`,
 		// refill: {
 		//   interval: "monthly",
 		//   amount: 100,
@@ -38,9 +35,22 @@ export async function createToken() {
 		enabled: true
 	})
 	if (error) {
-		console.error(`Error creatign token: ${error.message}`)
+		console.error(`Unkey: Error creating token: ${error.message}`)
 		return null
 	}
-	console.log(`Created token`)
+	console.log(`Unkey: Created token`)
+	return result
+}
+
+export async function deleteToken(keyId: string) {
+	const { result, error } = await unkey.keys.delete({
+		keyId,
+		permanent: true
+	})
+	if (error) {
+		console.error(`Unkey: Error deleting token: ${error.message}`)
+		return null
+	}
+	console.log(`Unkey: Deleted token`)
 	return result
 }

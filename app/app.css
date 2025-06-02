@@ -1,9 +1,7 @@
 @import 'tailwindcss';
 
 @theme {
-	--font-sans:
-		'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-		'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+	--font-sans: 'Open Sans', sans-serif;
 }
 
 html,
@@ -14,6 +12,21 @@ body {
 		color-scheme: dark;
 	}
 }
+
+.theme-root {
+	font-family: 'Inter';
+	/* letter-spacing: -0.5px; */
+	font-size: 1.125rem;
+}
+
+/* .theme-root h1,
+h2,
+h3,
+h3,
+h5,
+h6 {
+	font-family: 'Prompt';
+} */
 
 .page-wrapper {
 	@apply mx-auto w-full max-w-[80rem] overflow-hidden px-[5%];

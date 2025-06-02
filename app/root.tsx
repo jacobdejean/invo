@@ -42,6 +42,10 @@ export async function loader(args: Route.LoaderArgs) {
 	return rootAuthLoader(args)
 }
 
+// export async function action(args: Route.ActionArgs) {
+
+// }
+
 export function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang='en'>
@@ -55,7 +59,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				<Links />
 			</head>
 			<body>
-				<Theme>{children}</Theme>
+				{children}
 				<ScrollRestoration />
 				<Scripts />
 				<PosthogInit />
@@ -66,13 +70,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App({ loaderData }: Route.ComponentProps) {
 	return (
-		<ClerkProvider
-			loaderData={loaderData}
-			signUpFallbackRedirectUrl='/'
-			signInFallbackRedirectUrl='/'
-		>
-			<Outlet />
-		</ClerkProvider>
+		<Theme>
+			<ClerkProvider
+				loaderData={loaderData}
+				signUpFallbackRedirectUrl='/'
+				signInFallbackRedirectUrl='/'
+			>
+				<Outlet />
+			</ClerkProvider>
+		</Theme>
 	)
 }
 

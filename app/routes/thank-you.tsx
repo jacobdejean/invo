@@ -39,22 +39,23 @@ export default function Support() {
 			<Section className='!pt-0 !pb-0'>
 				<Container>
 					<h1 className='mb-4 text-4xl leading-none font-medium max-sm:text-2xl'>
-						Need Support?
+						Your submission was received.
 					</h1>
 					<Box className='mb-4 max-w-2xl'>
 						<Text mb={'4'}>
-							For bug reports and feature requests, please email
-							us at{' '}
+							Thank you for your inquiry, we'll follow up as soon
+							as we can.
+							<br />
+							<br />
 							<Link href='mailto:support@invo.dev'>
 								support@invo.dev
-							</Link>{' '}
-							.
+							</Link>
 						</Text>
 					</Box>
 				</Container>
 			</Section>
 
-			{/* <Section className='!pt-0 max-sm:!pb-0'>
+			<Section className='!pt-0 max-sm:!pb-0'>
 				<Container>
 					<Form.Form
 						action={'/api/inbox'}
@@ -92,7 +93,7 @@ export default function Support() {
 						</Box>
 					</Form.Form>
 				</Container>
-			</Section> */}
+			</Section>
 
 			<Section>
 				<Container>

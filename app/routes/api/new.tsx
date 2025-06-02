@@ -16,6 +16,13 @@ export async function action({ request, params }: Route.ActionArgs) {
 			status: 403
 		})
 	}
+	const contentHeader = request.headers.get('Content-Type')
+	switch(contentHeader) {
+	'application/json': {
+    break;
+	}
+
+	}
 	const invoiceFormData = await request.formData()
 	const invoiceData = fromFormData(invoiceFormData)
 	return createPdfResponse(invoiceData)

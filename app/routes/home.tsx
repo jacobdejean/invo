@@ -1,4 +1,5 @@
 import type { Route } from './+types/home'
+import { Suspense, lazy } from 'react'
 import {
 	Box,
 	Button,
@@ -12,7 +13,7 @@ import {
 	Tabs,
 	Text
 } from '@radix-ui/themes'
-import { CodeBlock } from 'react-code-blocks'
+import { Highlight, themes } from 'prism-react-renderer'
 import WebFooter from '~/components/web-footer'
 import WebNav from '~/components/web-nav'
 import { example, exampleHeaders } from './docs'
@@ -39,9 +40,9 @@ export default function Home() {
 			</Section>
 			<Section className='!pt-0'>
 				<Container>
-					<h1 className='mb-4 text-6xl leading-none font-medium max-sm:text-4xl'>
+					<h1 className='mb-8 text-6xl leading-none font-medium max-sm:text-4xl'>
 						A <i>simpler</i> way to create
-						<br className='max-sm:hidden' /> professional invoices
+						<br className='max-sm:hidden' /> professional invoices.
 					</h1>
 					<Box className='max-w-2xl'>
 						<Text mb={'4'}>
@@ -84,68 +85,90 @@ export default function Home() {
 					</h2>
 					<Box className='mb-4 max-w-2xl'>
 						<Text mb={'4'}>
-							Invo.dev is a minimal pdf invoice generation tool.
-							It's designed to be simple and easy to use, so you
-							can focus on what you do. It was born out of a
-							personal need to generate PDF invoices without the
-							overhead of a full billing solution.
+							Invo.dev provides a streamlined solution for
+							creating professional PDF invoices without the
+							complexity of full-featured accounting software.
+							Designed with simplicity in mind, our platform helps
+							freelancers and small businesses create polished
+							invoices quickly and efficiently.
 							<br />
 							<br />
-							You can make feature suggestions or bug reports by
-							emailing us at{' '}
+							<p className='mb-4'>To use Invo.dev:</p>
+							<ol className='flex flex-col gap-2 list-decimal pl-5'>
+								<li>
+									Navigate to{' '}
+									<Link href='/new'>invo.dev/new</Link>.
+								</li>
+								<li>
+									Complete the invoice form with your business
+									and client information.
+								</li>
+								<li>
+									Click "Generate invoice" to create your PDF.
+								</li>
+								<li>
+									Your invoice will automatically download
+									within seconds.
+								</li>
+							</ol>
+							<br />
+							<br />
+							For feature requests or assistance, please contact
+							us at{' '}
 							<Link href='mailto:support@invo.dev'>
 								support@invo.dev
 							</Link>
 							.
 						</Text>
 						<br />
+					</Box>
+				</Container>
+			</Section>
+			<Section id='api' className='!pb-0'>
+				<Container>
+					<h2 className='mb-8 text-3xl leading-none font-medium max-sm:text-2xl'>
+						How it Works
+					</h2>
+					<Box className='mb-4 max-w-2xl'>
 						<Text>
-							To get started, simply navigate to{' '}
-							<Link href='/new'>invo.dev/new</Link> where you will
-							find a form to fill. Proceed to enter as many fields
-							as you find necessary, and then click the "Generate
-							invoice" button. After just a few seconds, a
-							download should automatically start.
-						</Text>
-						<h2 className='mt-10 mb-4 text-2xl'>How it works</h2>
-						<Text>
-							The tool uses your submission to render a real, high
-							quality PDF with Cloudflare's Browser Rendering API.
-							Many popular PDF rendering solutions get this wrong
-							by just rendering the content to an image,
-							rasterizing every element to be opaque and
-							unselectable. This is due to them attempting to
-							render in a browser constrained environment. <br />
-							<br />
-							Invo.dev circumvents this by utilizing a headless
-							cloud browser environment to print a sized page to
-							PDF automatically without any hacks.
+							Invo.dev leverages Cloudflare's Browser Rendering
+							API to produce high-quality, professional PDF
+							documents. Unlike many PDF generation tools that
+							simply convert content to images (resulting in
+							non-selectable text and poor quality), our solution
+							renders true PDFs with selectable text and vector
+							graphics.
 							<br />
 							<br />
-							This also sets Invo.dev up as a great platform for
-							automated invoice generation as we can provide you
-							PDFs asyncronously and in bulk.
+							By utilizing a headless cloud browser environment,
+							we generate properly formatted PDFs that maintain
+							the integrity of your invoice data. This approach
+							also enables us to support automated invoice
+							generation for businesses requiring batch processing
+							capabilities.
 						</Text>
 					</Box>
 				</Container>
 			</Section>
-			<Section id='api'>
+			<Section id='api' className='!pb-0'>
 				<Container>
 					<h2 className='mb-8 text-3xl leading-none font-medium max-sm:text-2xl'>
 						API
 					</h2>
 					<Box className='mb-4 max-w-2xl'>
 						<Text>
-							Invo.dev offers a simple API for programmatic
-							invoice pdf creation. To use the endpoint you'll
-							need to register for an access token. This API is
-							free to use at a rate limit of 100 requests per
-							month. We plan to introduce a paid tier in the near
-							future to support higher limits.
+							Invo.dev offers a straightforward API for
+							programmatic invoice creation. To access this
+							functionality, you'll need to register for an access
+							token. The API is available free of charge with a
+							limit of 100 requests per month, with paid tiers
+							planned for users requiring higher volume.
 						</Text>
 						<br />
 						<br />
-						<Text>Available endpoints:</Text>
+						<Text className='font-medium'>
+							Available endpoints:
+						</Text>
 						<br />
 						<Text>
 							<Code>POST</Code>
@@ -160,12 +183,40 @@ export default function Home() {
 						<br />
 						<br />
 						<Text>Example:</Text>
-						<CodeBlock
-							text={example}
-							language={'js'}
-							showLineNumbers={true}
-							wrapLines
-						/>
+						<br />
+						<br />
+						<Highlight
+							theme={themes.oneLight}
+							code={example}
+							language='ts'
+						>
+							{({
+								className,
+								style,
+								tokens,
+								getLineProps,
+								getTokenProps
+							}) => (
+								<pre style={style} className=''>
+									{tokens.map((line, i) => (
+										<div
+											key={i}
+											{...getLineProps({ line })}
+										>
+											<span>{i + 1} </span>
+											{line.map((token, key) => (
+												<span
+													key={key}
+													{...getTokenProps({
+														token
+													})}
+												/>
+											))}
+										</div>
+									))}
+								</pre>
+							)}
+						</Highlight>
 						<br />
 						<Text>
 							<br />
@@ -173,12 +224,38 @@ export default function Home() {
 							these headers along with a pdf blob.
 							<br />
 							<br />
-							<CodeBlock
-								text={exampleHeaders}
-								language={'json'}
-								showLineNumbers={true}
-								wrapLines
-							/>
+							<Highlight
+								theme={themes.oneLight}
+								code={exampleHeaders}
+								language='json'
+							>
+								{({
+									className,
+									style,
+									tokens,
+									getLineProps,
+									getTokenProps
+								}) => (
+									<pre style={style} className=''>
+										{tokens.map((line, i) => (
+											<div
+												key={i}
+												{...getLineProps({ line })}
+											>
+												<span>{i + 1} </span>
+												{line.map((token, key) => (
+													<span
+														key={key}
+														{...getTokenProps({
+															token
+														})}
+													/>
+												))}
+											</div>
+										))}
+									</pre>
+								)}
+							</Highlight>
 						</Text>
 					</Box>
 				</Container>
