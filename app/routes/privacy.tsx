@@ -107,9 +107,9 @@ export default function Privacy() {
 								</li>
 								<li>
 									<strong>Cloudflare:</strong> We use
-									Cloudflare to generate PDF invoices. Your
-									invoice data is processed through their
-									secure infrastructure but is not stored
+									Cloudflare to host our services. Your data
+									is processed through their secure
+									infrastructure but is not stored
 									permanently.
 								</li>
 							</ul>

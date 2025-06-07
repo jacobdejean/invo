@@ -70,7 +70,7 @@ export default function Home() {
 						</a>
 						<a
 							href='#api'
-							className='rt-reset rt-BaseButton rt-r-size-4 rt-variant-soft rt-Button'
+							className='rt-reset rt-BaseButton rt-r-size-4 rt-variant-soft rt-Button !hidden'
 						>
 							Explore the API
 						</a>
@@ -131,26 +131,28 @@ export default function Home() {
 					</h2>
 					<Box className='mb-4 max-w-2xl'>
 						<Text>
-							Invo.dev leverages Cloudflare's Browser Rendering
-							API to produce high-quality, professional PDF
-							documents. Unlike many PDF generation tools that
-							simply convert content to images (resulting in
-							non-selectable text and poor quality), our solution
-							renders true PDFs with selectable text and vector
-							graphics.
+							Invo.dev leverages Cloudflare APIs to produce
+							high-quality, professional PDF documents. Unlike
+							many PDF generation tools that simply convert
+							content to images (resulting in non-selectable text
+							and poor quality), our solution renders true PDFs
+							with selectable text and vector graphics.
 							<br />
 							<br />
-							By utilizing a headless cloud browser environment,
-							we generate properly formatted PDFs that maintain
-							the integrity of your invoice data. This approach
-							also enables us to support automated invoice
-							generation for businesses requiring batch processing
-							capabilities.
+							By utilizing a isolated headless browser
+							environments, we generate well-formatted PDFs that
+							maintain the integrity of the data. This approach
+							enables us to support businesses requiring secure,
+							scaleable invoicing infrastructure. You can{' '}
+							<Link href='mailto:support@invo.dev'>
+								reach out
+							</Link>{' '}
+							for more information on this.
 						</Text>
 					</Box>
 				</Container>
 			</Section>
-			<Section id='api' className='!pb-0'>
+			<Section id='api' className='!pb-0 hidden'>
 				<Container>
 					<h2 className='mb-8 text-3xl leading-none font-medium max-sm:text-2xl'>
 						API
