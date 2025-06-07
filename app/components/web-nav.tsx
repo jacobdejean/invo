@@ -47,7 +47,7 @@ export default function WebNav() {
 				))}
 			</ul>
 			<div className='grow' />
-			<div>
+			<div className='hidden'>
 				<SignedOut>
 					<SignInButton mode='modal'>
 						<a className='link cursor-pointer'>Login</a>
