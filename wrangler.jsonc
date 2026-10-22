@@ -1,6 +1,6 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "invo",
+	"name": "invo-dev",
 	"compatibility_date": "2025-04-25",
 	"compatibility_flags": ["nodejs_compat"],
 	"main": "./workers/app.ts",
