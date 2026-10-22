@@ -1,0 +1,18 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "invo",
+	"compatibility_date": "2025-04-25",
+	"compatibility_flags": ["nodejs_compat"],
+	"main": "./workers/app.ts",
+	"assets": {
+		"directory": "./build/client"
+	},
+	"observability": {
+		"enabled": true
+	}
+	// Set secrets with `wrangler secret put`:
+	// wrangler secret put CLOUDFLARE_ACCOUNT_ID
+	// wrangler secret put CLOUDFLARE_API_TOKEN
+	// wrangler secret put PRODUCTION_HOSTNAME
+	// wrangler secret put UNKEY_ROOT_KEY
+}

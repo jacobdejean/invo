@@ -4,18 +4,14 @@
 	"type": "module",
 	"scripts": {
 		"build": "react-router build",
+		"deploy": "npm run build && wrangler deploy",
 		"dev": "react-router dev",
-		"start": "react-router-serve ./build/server/index.js",
-		"typecheck": "react-router typegen && tsc"
+		"preview": "npm run build && wrangler dev",
+		"cf-typegen": "wrangler types",
+		"typecheck": "npm run cf-typegen && react-router typegen && tsc"
 	},
 	"dependencies": {
-		"@clerk/backend": "^1.34.0",
-		"@clerk/elements": "^0.23.29",
-		"@clerk/react-router": "^1.4.6",
 		"@radix-ui/themes": "^3.2.1",
-		"@react-router/node": "^7.2.0",
-		"@react-router/serve": "^7.2.0",
-		"@unkey/api": "^0.36.0",
 		"immer": "^10.1.1",
 		"isbot": "^5.1.17",
 		"lucide-react": "^0.477.0",
@@ -26,12 +22,13 @@
 		"react-code-blocks": "^0.1.6",
 		"react-dom": "^19.0.0",
 		"react-router": "^7.2.0",
-		"svix": "^1.66.0",
 		"tiny-invariant": "^1.3.3",
 		"yeast": "^0.1.2",
 		"zustand": "^5.0.3"
 	},
 	"devDependencies": {
+		"@cloudflare/vite-plugin": "^1.13.8",
+		"@cloudflare/workers-types": "^5.20261019.1",
 		"@react-router/dev": "^7.2.0",
 		"@tailwindcss/vite": "^4.0.0",
 		"@trivago/prettier-plugin-sort-imports": "^5.2.2",
@@ -41,10 +38,11 @@
 		"@types/yeast": "^0.1.3",
 		"prettier": "^3.5.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
-		"react-router-devtools": "^1.1.0",
+
 		"tailwindcss": "^4.0.0",
 		"typescript": "^5.7.2",
-		"vite": "^5.4.11",
-		"vite-tsconfig-paths": "^5.1.4"
+		"vite": "^6.3.5",
+		"vite-tsconfig-paths": "^5.1.4",
+		"wrangler": "^4.42.2"
 	}
 }

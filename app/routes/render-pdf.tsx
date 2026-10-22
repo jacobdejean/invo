@@ -11,19 +11,17 @@ import log from '~/log'
   how React Router handles the action's PDF response.
 */
 
-export async function action({ request, params }: Route.ActionArgs) {
+export async function action({ request, context }: Route.ActionArgs) {
 	const invoiceFormData = await request.formData()
 	const invoiceData = fromFormData(invoiceFormData)
-	return createPdfResponse(invoiceData)
+	return createPdfResponse(context.env, invoiceData)
 }
 
-export async function createPdfResponse(invoiceData: any) {
+export async function createPdfResponse(env: Env, invoiceData: any) {
 	try {
-		const cloudflareAccountId =
-			process.env.CLOUDFLARE_ACCOUNT_ID ?? 'env missing variable'
-		const cloudflareApiToken =
-			process.env.CLOUDFLARE_API_TOKEN ?? 'env missing variable'
-		const domain = process.env.PRODUCTION_HOSTNAME ?? 'env missing variable'
+		const cloudflareAccountId = env.CLOUDFLARE_ACCOUNT_ID
+		const cloudflareApiToken = env.CLOUDFLARE_API_TOKEN
+		const domain = env.PRODUCTION_HOSTNAME
 		const renderUrl = new URL(`${domain}/render-web`)
 
 		log('INFO', 'Creating PDF')

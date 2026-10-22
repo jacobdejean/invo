@@ -4,10 +4,10 @@ import { createPdfResponse, fromFormData } from '../render-pdf'
 
 const API_DISABLED = true
 
-export async function action({ request, params }: Route.ActionArgs) {
+export async function action({ request, context }: Route.ActionArgs) {
 	const authHeader = request.headers.get('Authorization')
 	const token = authHeader?.replace('Bearer ', '')
-	const user = token ? await checkToken(token) : null
+	const user = token ? await checkToken(context.env, token) : null
 	if (!user) {
 		return new Response('Unauthenticated', {
 			status: 401
@@ -27,5 +27,5 @@ export async function action({ request, params }: Route.ActionArgs) {
 
 	const invoiceFormData = await request.formData()
 	const invoiceData = fromFormData(invoiceFormData)
-	return createPdfResponse(invoiceData)
+	return createPdfResponse(context.env, invoiceData)
 }

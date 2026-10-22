@@ -1,5 +1,3 @@
-import { ClerkProvider } from '@clerk/react-router'
-import { rootAuthLoader } from '@clerk/react-router/ssr.server'
 import type { Route } from './+types/root'
 import { useEffect } from 'react'
 import { Theme } from '@radix-ui/themes'
@@ -38,14 +36,6 @@ function PosthogInit() {
 	return null
 }
 
-export async function loader(args: Route.LoaderArgs) {
-	return rootAuthLoader(args)
-}
-
-// export async function action(args: Route.ActionArgs) {
-
-// }
-
 export function Layout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang='en'>
@@ -68,16 +58,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	)
 }
 
-export default function App({ loaderData }: Route.ComponentProps) {
+export default function App() {
 	return (
 		<Theme>
-			<ClerkProvider
-				loaderData={loaderData}
-				signUpFallbackRedirectUrl='/'
-				signInFallbackRedirectUrl='/'
-			>
-				<Outlet />
-			</ClerkProvider>
+			<Outlet />
 		</Theme>
 	)
 }

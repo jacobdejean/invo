@@ -1,17 +1,4 @@
-import * as Clerk from '@clerk/elements/common'
-import {
-	SignInButton,
-	SignedIn,
-	SignedOut,
-	UserButton,
-	useUser
-} from '@clerk/react-router'
-import { useEffect, useState } from 'react'
-import { Button, TextField } from '@radix-ui/themes'
-import { Form } from 'radix-ui'
-import { KeyRound } from 'lucide-react'
-import { Link, useFetcher, useNavigate } from 'react-router'
-import AccessMenu from './access-menu'
+import { Link } from 'react-router'
 
 export type WebNavProps = {}
 
@@ -47,24 +34,6 @@ export default function WebNav() {
 				))}
 			</ul>
 			<div className='grow' />
-			<div className='hidden'>
-				<SignedOut>
-					<SignInButton mode='modal'>
-						<a className='link cursor-pointer'>Login</a>
-					</SignInButton>
-				</SignedOut>
-				<SignedIn>
-					<UserButton>
-						<UserButton.UserProfilePage
-							label='API Access'
-							url='api-access'
-							labelIcon={<KeyRound width={14} height={14} />}
-						>
-							<AccessMenu />
-						</UserButton.UserProfilePage>
-					</UserButton>
-				</SignedIn>
-			</div>
 		</nav>
 	)
 }

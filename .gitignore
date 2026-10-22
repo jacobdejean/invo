@@ -7,3 +7,9 @@
 
 .env
 .env.local
+
+# Cloudflare
+.wrangler/
+.dev.vars
+.dev.vars.*
+worker-configuration.d.ts
