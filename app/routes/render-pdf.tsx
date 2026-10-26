@@ -21,8 +21,18 @@ export async function createPdfResponse(env: Env, invoiceData: any) {
 	try {
 		const cloudflareAccountId = env.CLOUDFLARE_ACCOUNT_ID
 		const cloudflareApiToken = env.CLOUDFLARE_API_TOKEN
-		const domain = env.PRODUCTION_HOSTNAME
-		const renderUrl = new URL(`${domain}/render-web`)
+		if (!cloudflareAccountId || !cloudflareApiToken) {
+			log('ERROR', 'Missing bindings', 'CLOUDFLARE_ACCOUNT_ID/CLOUDFLARE_API_TOKEN not set')
+			return new Response(
+				JSON.stringify({
+					error: 'PDF service not configured (missing Cloudflare bindings)'
+				}),
+				{
+					status: 500,
+					headers: { 'Content-Type': 'application/json' }
+				}
+			)
+		}
 
 		log('INFO', 'Creating PDF')
 
@@ -100,17 +110,18 @@ export async function createPdfResponse(env: Env, invoiceData: any) {
 			}
 		})
 	} catch (error) {
-		log(
-			'ERROR',
-			`Failed to Create PDF`,
-			'message' in error ? error.message : JSON.stringify(error)
-		)
-		return new Response(JSON.stringify({ error: 'Failed to render PDF' }), {
-			status: 500,
-			headers: {
-				'Content-Type': 'application/json'
+		const message =
+			error instanceof Error ? error.message : JSON.stringify(error)
+		log('ERROR', `Failed to Create PDF`, message)
+		return new Response(
+			JSON.stringify({ error: 'Failed to render PDF', message }),
+			{
+				status: 500,
+				headers: {
+					'Content-Type': 'application/json'
+				}
 			}
-		})
+		)
 	}
 }
 
